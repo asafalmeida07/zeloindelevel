@@ -1,0 +1,26 @@
+.wrap { max-width: 760px; padding: 22px 16px 56px; }
+.head { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 18px; }
+.h1 { font-size: 22px; font-weight: 700; }
+.sub { color: var(--text-dim); font-size: 13px; margin-top: 4px; }
+.dim { color: var(--text-dim); font-size: 13.5px; }
+.grid { display: flex; flex-direction: column; gap: 12px; }
+.row { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+.id { min-width: 140px; flex: 1; }
+.name { font-size: 16px; font-weight: 600; }
+.code { font-family: var(--font-num); font-size: 12.5px; color: var(--text-dim); }
+.metaRow { display: flex; gap: 18px; }
+.meta { text-align: center; }
+.metaN { font-family: var(--font-num); font-weight: 700; font-size: 18px; }
+.metaL { font-size: 10.5px; color: var(--text-dim); text-transform: uppercase; letter-spacing: .04em; margin-top: 2px; }
+.actions { display: flex; gap: 8px; margin-left: auto; }
+.overlay { position: fixed; inset: 0; background: rgba(8,8,11,.7); backdrop-filter: blur(4px); display: grid; place-items: center; padding: 18px; z-index: 100; overflow-y: auto; }
+.modal { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-xl); padding: 22px; width: 100%; max-width: 460px; box-shadow: var(--shadow); margin: auto; }
+.modalTitle { font-size: 17px; font-weight: 700; margin-bottom: 16px; }
+.fields { display: flex; flex-direction: column; gap: 14px; }
+.label { font-size: 12.5px; font-weight: 600; color: var(--text-dim); display: block; margin-bottom: 8px; }
+.tasks { display: flex; flex-direction: column; gap: 7px; max-height: 300px; overflow-y: auto; padding-right: 4px; }
+.taskRow { display: flex; align-items: center; gap: 8px; }
+.tNum { font-family: var(--font-num); font-size: 12.5px; color: var(--text-faint); width: 18px; text-align: right; }
+.tInput { flex: 1; background: var(--surface-2); border: 1px solid var(--line); border-radius: var(--r-sm); padding: 9px 11px; font-size: 14px; color: var(--text); }
+.tInput:focus { outline: none; border-color: var(--accent); }
+.modalActions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 20px; }

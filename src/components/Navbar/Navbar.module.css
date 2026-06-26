@@ -1,0 +1,12 @@
+.bar { position: sticky; top: 0; z-index: 30; height: var(--nav-h); background: rgba(14,14,18,.82); backdrop-filter: blur(12px); border-bottom: 1px solid var(--line-soft); }
+.inner { height: 100%; max-width: var(--maxw); margin: 0 auto; padding: 0 16px; display: flex; align-items: center; justify-content: space-between; }
+.brand { display: flex; align-items: center; gap: 9px; font-weight: 700; letter-spacing: -.01em; font-size: 15.5px; }
+.dot { width: 12px; height: 12px; border-radius: 4px; background: var(--accent); box-shadow: 0 0 12px var(--accent); }
+.right { display: flex; align-items: center; gap: 12px; }
+.phase { font-size: 12.5px; color: var(--text-dim); font-variant-numeric: tabular-nums; }
+.chip { display: flex; align-items: center; gap: 8px; background: var(--surface-2); border: 1px solid var(--line); border-radius: 999px; padding: 4px 10px 4px 4px; }
+.chip:hover { background: var(--elevated); }
+.chipName { font-size: 13px; font-weight: 600; max-width: 90px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+@media (max-width: 520px) { .phase { display: none; } }
+.master { font-size: 13px; font-weight: 600; color: var(--gold); background: rgba(242,193,78,.1); border: 1px solid rgba(242,193,78,.28); border-radius: 999px; padding: 5px 11px; }
+.master:hover { background: rgba(242,193,78,.18); }

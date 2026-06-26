@@ -1,0 +1,5 @@
+.wrap { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; padding: 40px; color: var(--text-dim); }
+.full { min-height: 70vh; }
+.ring { width: 30px; height: 30px; border-radius: 50%; border: 3px solid var(--line); border-top-color: var(--accent); animation: lspin .8s linear infinite; }
+.label { font-size: 13.5px; }
+@keyframes lspin { to { transform: rotate(360deg); } }

@@ -1,0 +1,4 @@
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg); box-shadow: var(--shadow-soft); overflow: hidden; }
+.head { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 15px 16px 0; }
+.title { font-size: 16px; font-weight: 600; letter-spacing: -.01em; }
+.body { padding: 16px; }

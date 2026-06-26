@@ -1,0 +1,3 @@
+.stars { letter-spacing: -1px; }
+.compact { display: inline-flex; align-items: center; gap: 1px; }
+.compact b { font-family: var(--font-num); font-weight: 600; }

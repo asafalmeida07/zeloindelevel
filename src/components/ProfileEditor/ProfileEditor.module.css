@@ -1,0 +1,11 @@
+.overlay { position: fixed; inset: 0; background: rgba(8,8,11,.7); backdrop-filter: blur(4px); display: grid; place-items: center; padding: 18px; z-index: 100; overflow-y: auto; }
+.modal { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-xl); padding: 22px; width: 100%; max-width: 420px; box-shadow: var(--shadow); margin: auto; animation: fade .25s ease both; }
+.title { font-size: 18px; font-weight: 700; margin-bottom: 16px; }
+.avatarRow { display: flex; align-items: center; gap: 16px; margin-bottom: 18px; }
+.fields { display: flex; flex-direction: column; gap: 14px; }
+.label { font-size: 12.5px; font-weight: 600; color: var(--text-dim); display: block; margin-bottom: 8px; }
+.colors { display: flex; gap: 10px; flex-wrap: wrap; }
+.sw { width: 32px; height: 32px; border-radius: 50%; transition: transform .12s ease; }
+.sw:hover { transform: scale(1.08); }
+.actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 20px; }
+@keyframes fade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }

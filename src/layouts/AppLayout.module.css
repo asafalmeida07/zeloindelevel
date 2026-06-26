@@ -1,0 +1,3 @@
+.shell { display: flex; gap: 28px; padding: 22px 16px 56px; align-items: flex-start; }
+.main { flex: 1; min-width: 0; }
+@media (min-width: 760px) { .shell { padding: 28px 24px 64px; } }

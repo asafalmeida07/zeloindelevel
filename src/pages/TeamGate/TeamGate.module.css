@@ -1,0 +1,16 @@
+.wrap { max-width: 560px; }
+.head { margin-bottom: 18px; }
+.h1 { font-size: 22px; font-weight: 700; }
+.sub { color: var(--text-dim); font-size: 13.5px; margin-top: 6px; }
+.tabs { display: inline-flex; gap: 4px; background: var(--surface-2); border: 1px solid var(--line); border-radius: 999px; padding: 4px; margin-top: 16px; }
+.tab, .tabOn { padding: 7px 14px; border-radius: 999px; font-size: 13px; font-weight: 600; color: var(--text-dim); }
+.tabOn { background: var(--accent); color: #fff; }
+.col { display: flex; flex-direction: column; gap: 14px; }
+.label { font-size: 12.5px; font-weight: 600; color: var(--text-dim); display: block; margin-bottom: 8px; }
+.tasks { display: flex; flex-direction: column; gap: 7px; max-height: 320px; overflow-y: auto; padding-right: 4px; }
+.taskRow { display: flex; align-items: center; gap: 8px; }
+.tNum { font-family: var(--font-num); font-weight: 600; font-size: 12.5px; color: var(--text-faint); width: 18px; text-align: right; }
+.tInput { flex: 1; background: var(--surface-2); border: 1px solid var(--line); border-radius: var(--r-sm); padding: 9px 11px; font-size: 14px; color: var(--text); }
+.tInput:focus { outline: none; border-color: var(--accent); }
+.logout { display: block; margin: 22px auto 0; color: var(--text-faint); font-size: 13px; }
+.logout:hover { color: var(--danger); }

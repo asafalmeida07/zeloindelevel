@@ -1,0 +1,12 @@
+.list { display: flex; flex-direction: column; gap: 1px; }
+.empty { color: var(--text-dim); font-size: 13.5px; padding: 6px 2px; }
+.row { display: flex; align-items: center; gap: 10px; padding: 9px 8px; border-radius: var(--r-md); }
+.me { background: var(--accent-soft); }
+.rank { font-family: var(--font-num); font-weight: 700; font-size: 16px; width: 22px; text-align: center; flex-shrink: 0; }
+.id { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.name { font-size: 14.5px; font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.you { font-style: normal; font-weight: 400; color: var(--text-dim); font-size: 12.5px; }
+.meta { font-size: 12px; color: var(--text-faint); display: flex; align-items: center; gap: 6px; }
+.streak { font-size: 12px; color: var(--accent-2); font-weight: 600; }
+.perfect { font-size: 12px; color: var(--text-dim); font-weight: 600; }
+.pts { font-family: var(--font-num); font-weight: 700; font-size: 18px; min-width: 38px; text-align: right; }

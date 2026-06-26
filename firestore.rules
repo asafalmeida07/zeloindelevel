@@ -1,0 +1,93 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function signedIn() {
+      return request.auth != null;
+    }
+    function isSelf(uid) {
+      return signedIn() && request.auth.uid == uid;
+    }
+    function teamData(teamId) {
+      return get(/databases/$(database)/documents/teams/$(teamId)).data;
+    }
+    function isTeamAdmin(teamId) {
+      return signedIn() && teamData(teamId).adminUid == request.auth.uid;
+    }
+    // Conta mestre: UID listado em config/app.masterUids.
+    // O documento config/app só pode ser editado manualmente pelo console.
+    function isMaster() {
+      return signedIn()
+        && exists(/databases/$(database)/documents/config/app)
+        && request.auth.uid in get(/databases/$(database)/documents/config/app).data.masterUids;
+    }
+
+    // ---- config (somente leitura pelo app; escrita apenas via console) ----
+    match /config/{docId} {
+      allow read: if signedIn();
+      allow write: if false;
+    }
+
+    // ---- users ----
+    // Qualquer usuário autenticado pode LER perfis (necessário para o ranking).
+    // Cada usuário só ESCREVE o próprio documento.
+    match /users/{uid} {
+      allow read: if signedIn();
+      allow create: if isSelf(uid);
+      allow update, delete: if isSelf(uid);
+    }
+
+    // ---- teams ----
+    // Leitura para autenticados. Criação por qualquer um (vira admin).
+    // Atualização pelo admin OU por quem está apenas entrando (join).
+    match /teams/{teamId} {
+      allow read: if signedIn();
+      allow create: if signedIn() && request.resource.data.adminUid == request.auth.uid;
+      allow update: if isTeamAdmin(teamId) || isMaster()
+        || (signedIn()
+            && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['memberUids']));
+      allow delete: if isTeamAdmin(teamId) || isMaster();
+    }
+
+    // ---- progress ----
+    // Documento por usuário/dia. Só o dono lê e escreve o próprio progresso;
+    // demais membros leem para montar ranking/feed.
+    match /progress/{docId} {
+      allow read: if signedIn();
+      allow create, update, delete: if signedIn()
+        && request.resource.data.uid == request.auth.uid;
+    }
+
+    // ---- ranking ----
+    // Cada usuário mantém seu próprio agregado de ranking.
+    match /ranking/{docId} {
+      allow read: if signedIn();
+      allow create, update: if signedIn()
+        && request.resource.data.uid == request.auth.uid;
+      allow delete: if false;
+    }
+
+    // ---- feed ----
+    // Eventos públicos da equipe; cada um só cria os próprios eventos.
+    match /feed/{docId} {
+      allow read: if signedIn();
+      allow create: if signedIn() && request.resource.data.uid == request.auth.uid;
+      allow update, delete: if false;
+    }
+
+    // ---- champions ----
+    // Registro permanente de campeões de fase. Criado uma única vez (guard).
+    match /champions/{docId} {
+      allow read: if signedIn();
+      allow create: if signedIn();
+      allow update, delete: if false;
+    }
+
+    // ---- phases (metadados opcionais por equipe) ----
+    match /phases/{docId} {
+      allow read: if signedIn();
+      allow write: if signedIn();
+    }
+  }
+}

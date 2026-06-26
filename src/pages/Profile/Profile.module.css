@@ -1,0 +1,17 @@
+.wrap { max-width: 640px; display: flex; flex-direction: column; gap: 16px; }
+.header { display: flex; align-items: flex-start; gap: 16px; }
+.idBlock { flex: 1; min-width: 0; }
+.name { font-size: 21px; font-weight: 700; letter-spacing: -.01em; }
+.stars { margin-top: 4px; min-height: 18px; }
+.objective { color: var(--text-dim); font-size: 13.5px; margin-top: 8px; font-style: italic; }
+.team { color: var(--text-faint); font-size: 12.5px; margin-top: 8px; font-family: var(--font-num); }
+.grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 20px; }
+@media (min-width: 560px) { .grid { grid-template-columns: repeat(5, 1fr); } }
+.stat { background: var(--surface-2); border: 1px solid var(--line); border-radius: var(--r-md); padding: 14px 12px; text-align: center; }
+.statN { font-family: var(--font-num); font-weight: 700; font-size: 26px; line-height: 1; }
+.statL { font-size: 11px; color: var(--text-dim); margin-top: 6px; text-transform: uppercase; letter-spacing: .04em; }
+.colorRow { display: flex; align-items: center; gap: 10px; padding: 0 4px; }
+.colorLabel { font-size: 12.5px; color: var(--text-dim); font-weight: 600; }
+.colorChip { width: 22px; height: 22px; border-radius: 50%; }
+.logout { margin-left: auto; color: var(--text-faint); font-size: 13px; }
+.logout:hover { color: var(--danger); }

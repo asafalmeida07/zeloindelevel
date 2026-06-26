@@ -1,0 +1,15 @@
+.grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
+@media (min-width: 980px) { .grid { grid-template-columns: 1.05fr .95fr; align-items: start; } }
+.left, .right { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+.dim { color: var(--text-dim); font-size: 13.5px; line-height: 1.5; }
+.dayMeta { display: flex; align-items: center; gap: 10px; font-size: 12.5px; color: var(--text-dim); }
+.todayBtn { color: var(--accent-2); font-weight: 600; font-size: 12.5px; }
+.ro { font-size: 12px; color: var(--text-dim); background: var(--surface-2); border: 1px solid var(--line); border-radius: var(--r-sm); padding: 6px 10px; display: inline-block; margin-bottom: 10px; }
+.closed { margin-top: 12px; background: var(--accent-soft); border: 1px solid var(--line); border-radius: var(--r-md); padding: 9px 12px; font-size: 13.5px; font-weight: 600; color: var(--accent-2); }
+.foot { font-size: 11px; color: var(--text-faint); margin-top: 10px; }
+.feed { display: flex; flex-direction: column; gap: 4px; }
+.feedRow { display: flex; align-items: center; gap: 9px; padding: 6px 2px; font-size: 13.5px; }
+.feedTxt { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.feedAgo { color: var(--text-faint); font-size: 12px; }
+.cta { color: var(--accent-2); font-weight: 600; font-size: 14px; }
+.cta:hover { filter: brightness(1.15); }
