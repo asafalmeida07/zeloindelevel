@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import Card from "../../components/Card/Card.jsx";
 import Journey from "../../components/Journey/Journey.jsx";
 import TaskCard from "../../components/TaskCard/TaskCard.jsx";
@@ -16,8 +15,8 @@ import { PHASE_DAYS as PD } from "../../utils/constants.js";
 import styles from "./Dashboard.module.css";
 
 export default function Dashboard() {
-  const { profile, isMaster } = useUser();
-  const { team, isMemberOfActive, isViewingOther } = useTeam();
+  const { profile } = useUser();
+  const { team } = useTeam();
   const phase = usePhase();
   const [selectedDay, setSelectedDay] = useState(0);
 
@@ -25,20 +24,6 @@ export default function Dashboard() {
     if (!phase?.started) return;
     setSelectedDay(phase.isCurrentView ? Math.max(phase.dipCurrent, 0) : 0);
   }, [phase?.started, phase?.isCurrentView, phase?.dipCurrent, phase?.viewedPhase]);
-
-  // Conta mestre sem grupo ativo: oferece o painel de grupos.
-  if (!team && isMaster) {
-    return (
-      <div className="fade-in">
-        <Card title="Conta mestre">
-          <p className={styles.dim}>Você não está visualizando nenhum grupo. Abra o painel para escolher.</p>
-          <div style={{ marginTop: 14 }}>
-            <Link to="/grupos" className={styles.cta}>Ver todos os grupos →</Link>
-          </div>
-        </Card>
-      </div>
-    );
-  }
 
   if (!team || !phase) return <Loading full label="Carregando painel" />;
 
@@ -56,7 +41,7 @@ export default function Dashboard() {
   const dayDoc = phase.progressMap[selectedDay];
   const completed = dayDoc?.completed || [];
   const selDate = dateForAbs(team.anchorDate, base + selectedDay);
-  const editable = phase.isCurrentView && selectedDay <= phase.dipCurrent && isMemberOfActive;
+  const editable = phase.isCurrentView && selectedDay <= phase.dipCurrent;
   const isToday = phase.isCurrentView && selectedDay === phase.dipCurrent;
   const dayCount = completed.length;
 
@@ -88,9 +73,6 @@ export default function Dashboard() {
           }
         >
           {!phase.isCurrentView && <div className={styles.ro}>Fase concluída · somente leitura</div>}
-          {phase.isCurrentView && isViewingOther && (
-            <div className={styles.ro}>Visualizando como mestre · somente leitura</div>
-          )}
           <TaskCard
             tasks={phase.tasks}
             completed={completed}
@@ -99,7 +81,7 @@ export default function Dashboard() {
             onToggle={(taskIdx) => phase.toggleTask(selectedDay, taskIdx)}
           />
           {editable && dayCount >= TASKS_PER_DAY && (
-            <div className={styles.closed}>Dia fechado, {firstName(profile?.name || "")}. Apenas continue.</div>
+            <div className={styles.closed}>Ciclo conclu�do, {firstName(profile?.name || "")}. Apenas continue.</div>
           )}
         </Card>
       </div>
@@ -107,18 +89,18 @@ export default function Dashboard() {
       <div className={styles.right}>
         <Card title={`Ranking · Fase ${phase.viewedPhase + 1}`}>
           <Leaderboard rows={phase.ranking} meUid={profile?.uid} />
-          <div className={styles.foot}>pontos = tarefas × 3 · ✓ dias 14/14 · 🔥 sequência</div>
+          <div className={styles.foot}>pontos = tarefas × 3 · ✓ ciclos 13/13 · 🔥 sequência</div>
         </Card>
 
         <Card title="Feed">
           {phase.feed.length === 0 ? (
-            <p className={styles.dim}>Quando alguém conclui um dia perfeito (14/14), aparece aqui.</p>
+            <p className={styles.dim}>Quando alguém conclui um ciclo de execu��o (13/13), aparece aqui.</p>
           ) : (
             <ul className={styles.feed}>
               {phase.feed.map((ev) => (
                 <li key={ev.id} className={styles.feedRow}>
                   <Avatar name={ev.name} photoURL={ev.photoURL} color={ev.color} size={26} />
-                  <span className={styles.feedTxt}><b>{ev.name}</b> concluiu o Dia {ev.day}</span>
+                  <span className={styles.feedTxt}><b>{ev.name}</b> concluiu o Ciclo {ev.day}</span>
                   <span className={styles.feedAgo}>{timeAgo(ev.ts)}</span>
                 </li>
               ))}
