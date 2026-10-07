@@ -18,7 +18,7 @@ import ForgotPassword from "./pages/ForgotPassword/ForgotPassword.jsx";
 import TeamGate from "./pages/TeamGate/TeamGate.jsx";
 import Dashboard from "./pages/Dashboard/Dashboard.jsx";
 import Profile from "./pages/Profile/Profile.jsx";
-import MasterPanel from "./pages/MasterPanel/MasterPanel.jsx";
+import Plan from "./pages/Plan/Plan.jsx";
 import NotFound from "./pages/NotFound/NotFound.jsx";
 
 import { useAuth } from "./hooks/useAuth.js";
@@ -31,24 +31,16 @@ function PublicOnly({ children }) {
   return isAuthenticated ? <Navigate to="/" replace /> : children;
 }
 
-// Exige que o usuário pertença a uma equipe — exceto a conta mestre,
-// que pode operar sem estar dentro de nenhum grupo.
+// Exige que o usuário pertença a uma equipe.
 function RequireTeam({ children }) {
-  const { profile, loading, isMaster } = useUser();
+  const { profile, loading } = useUser();
   if (loading || !profile) return <Loading full label="Carregando" />;
-  if (!profile.teamId && !isMaster) return <Navigate to="/equipe" replace />;
-  return children;
-}
-
-// Só a conta mestre acessa o painel de grupos.
-function RequireMaster({ children }) {
-  const { loading, isMaster } = useUser();
-  if (loading) return <Loading full label="Carregando" />;
-  if (!isMaster) return <Navigate to="/" replace />;
+  if (!profile.teamId) return <Navigate to="/equipe" replace />;
   return children;
 }
 
 function GateTeam() {
+  // Se já tem equipe, não faz sentido ficar na tela de entrada.
   const { profile, loading } = useUser();
   if (loading || !profile) return <Loading full label="Carregando" />;
   if (profile.teamId) return <Navigate to="/" replace />;
@@ -83,7 +75,7 @@ export default function App() {
                   >
                     <Route path="/" element={<Dashboard />} />
                     <Route path="/perfil" element={<Profile />} />
-                    <Route path="/grupos" element={<RequireMaster><MasterPanel /></RequireMaster>} />
+                    <Route path="/plano" element={<Plan />} />
                   </Route>
 
                   <Route path="*" element={<NotFound />} />
