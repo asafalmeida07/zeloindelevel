@@ -23,6 +23,7 @@ export const DEFAULT_TASKS = [
 ];
 
 export const PROFILE_COLORS = [
-  "#6E56F8", "#2FBF71", "#F2C14E", "#F2545B",
-  "#3BA0FF", "#FF6FB5", "#16C0C0", "#FF8A3C",
+  "#7A1B1B", "#E8731A", "#1F4D36", "#14284B",
+  "#5A1313", "#B85A13", "#153826", "#0E1C36"
 ];
+
