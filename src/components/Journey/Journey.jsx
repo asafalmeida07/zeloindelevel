@@ -27,11 +27,11 @@ export default function Journey({
           <div className={styles.day}>
             <span className={styles.dayBig}>{bigDay}</span><span className={styles.dayTot}>/ {PHASE_DAYS}</span>
           </div>
-          <div className={styles.dayLabel}>{isCurrentView ? "dia da fase" : "fase concluída"}</div>
+          <div className={styles.dayLabel}>{isCurrentView ? "ciclo da fase" : "fase concluída"}</div>
         </div>
         <div className={styles.stats}>
           <Stat n={stats.points} l="pontos" />
-          <Stat n={stats.perfectDays} l="dias 14/14" />
+          <Stat n={stats.perfectDays} l="ciclos concluidos" />
           <Stat n={stats.streak} l="sequência" hot={stats.streak > 1} />
         </div>
       </div>
@@ -53,7 +53,7 @@ export default function Journey({
           }
           return (
             <button key={d} className={styles.cell} disabled={isFuture}
-              onClick={() => !isFuture && onSelect(d)} title={`Dia ${d + 1} — ${count}/${TASKS_PER_DAY}`}
+              onClick={() => !isFuture && onSelect(d)} title={`Ciclo ${d + 1} — ${count}/${TASKS_PER_DAY}`}
               style={{ background: bg, border, color, fontWeight: perfect ? 700 : 500,
                 cursor: isFuture ? "default" : "pointer",
                 boxShadow: isSel ? "0 0 0 2px var(--accent-2)" : isToday ? "0 0 0 2px #fff" : "none" }}>
