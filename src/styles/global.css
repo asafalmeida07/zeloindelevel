@@ -41,3 +41,14 @@ ul { list-style: none; }
 @media (prefers-reduced-motion: reduce) {
   * { animation: none !important; transition: none !important; }
 }
+
+.root-layout-content {
+  flex: 1;
+}
+
+@media (max-width: 760px) {
+  .root-layout-content {
+    padding-bottom: 60px; /* space for mobile fixed tabs */
+  }
+}
+
