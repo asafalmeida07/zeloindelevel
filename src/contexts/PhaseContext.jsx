@@ -12,12 +12,11 @@ import { useUserContext } from "./UserContext.jsx";
 const PhaseContext = createContext(null);
 
 export function PhaseProvider({ children }) {
-  const { team, isMemberOfActive } = useTeamContext();
+  const { team } = useTeamContext();
   const { profile, refresh: refreshUser } = useUserContext();
 
   const info = team?.anchorDate ? getPhaseInfo(team.anchorDate) : { started: false };
   const curPhase = info.started ? info.phaseIndex : 0;
-  const dipCurrent = info.started ? info.dayInPhase : -1;
 
   const [viewedPhase, setViewedPhase] = useState(0);
   const [progressMap, setProgressMap] = useState({});
@@ -25,6 +24,8 @@ export function PhaseProvider({ children }) {
   const [feed, setFeed] = useState([]);
   const finalized = useRef(false);
 
+  const myAggTemp = aggregateFromProgress(progressMap, 42);
+  const dipCurrent = info.started ? Math.min(myAggTemp.perfectDays, 42) : -1;
   const isCurrentView = viewedPhase === curPhase;
   const throughDay = isCurrentView ? dipCurrent : null;
 
@@ -66,7 +67,6 @@ export function PhaseProvider({ children }) {
   // alterna uma tarefa em um dia (somente fase atual, até o dia de hoje)
   const toggleTask = useCallback(async (dayInPhase, taskIndex) => {
     if (!team || !profile) return;
-    if (!isMemberOfActive) return; // mestre visualizando outro grupo não marca tarefas
     if (!isCurrentView || dayInPhase < 0 || dayInPhase > dipCurrent) return;
 
     const dayDoc = progressMap[dayInPhase];
@@ -95,9 +95,9 @@ export function PhaseProvider({ children }) {
       }
     }
     loadShared();
-  }, [team, profile, isMemberOfActive, isCurrentView, dipCurrent, progressMap, viewedPhase, refreshUser, loadShared]);
+  }, [team, profile, isCurrentView, dipCurrent, progressMap, viewedPhase, refreshUser, loadShared]);
 
-  const myAgg = aggregateFromProgress(progressMap, isCurrentView ? dipCurrent : null);
+  const myAgg = myAggTemp;
 
   const value = {
     info,
@@ -121,3 +121,6 @@ export function PhaseProvider({ children }) {
 
 export const usePhaseContext = () => useContext(PhaseContext);
 export default PhaseContext;
+
+
+
