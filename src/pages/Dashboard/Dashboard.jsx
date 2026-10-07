@@ -62,7 +62,7 @@ export default function Dashboard() {
         />
 
         <Card
-          title={isToday ? "Hoje" : `Dia ${selectedDay + 1}`}
+          title={isToday ? "Hoje" : `Ciclo ${selectedDay + 1}`}
           action={
             <span className={styles.dayMeta}>
               Fase {phase.viewedPhase + 1} · {fmtDate(selDate)} · {dayCount}/{TASKS_PER_DAY}
