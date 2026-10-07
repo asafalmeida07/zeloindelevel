@@ -17,7 +17,7 @@ export default function Navbar() {
         <div className={styles.right}>
           {phase?.started && (
             <span className={styles.phase}>
-              Dia {phase.info.diaDoMapa} do MAPA • Fase {phase.info.phaseNumber} • Etapa {phase.info.etapaNumber}
+              Dia {phase.info.diaDoMapa} do MAPA • Fase {phase.info.phaseNumber} • Etapa {phase.info.etapaNumber} � Ciclo {profile.perfectDays + 1}
             </span>
           )}
           <Link to="/perfil" className={styles.chip}>
