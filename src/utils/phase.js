@@ -26,6 +26,11 @@ export function getPhaseInfo(anchorYMD) {
   const started = dsa >= 0;
   const phaseIndex = started ? Math.floor(dsa / PHASE_DAYS) : 0;
   const dayInPhase = started ? dsa - phaseIndex * PHASE_DAYS : -1;
+  
+  const etapaInPhase = started ? (dayInPhase < 36 ? Math.floor(dayInPhase / 9) : 4) : -1;
+  const etapaNumber = started ? (phaseIndex * 5) + etapaInPhase + 1 : -1;
+  const diaDoMapa = started ? dsa + 1 : -1;
+
   return {
     started,
     daysSinceAnchor: dsa,
@@ -33,6 +38,9 @@ export function getPhaseInfo(anchorYMD) {
     dayInPhase,                 // 0-based
     phaseNumber: phaseIndex + 1,
     dayNumber: dayInPhase + 1,
+    diaDoMapa,
+    etapaNumber,
+    etapaInPhase
   };
 }
 
