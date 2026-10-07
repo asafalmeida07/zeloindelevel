@@ -1,12 +1,112 @@
-.list { display: flex; flex-direction: column; gap: 2px; }
-.row { display: flex; align-items: center; gap: 12px; padding: 10px 4px; border-radius: var(--r-sm); }
-.check { width: 23px; height: 23px; border-radius: 7px; border: 2px solid var(--line); display: grid; place-items: center; font-size: 13px; font-weight: 700; color: var(--pilar-direcionamento); flex-shrink: 0; transition: background .12s ease, border-color .12s ease; }
-.check:not(:disabled):hover { border-color: var(--accent); }
-.on { background: var(--success); border-color: var(--success); color: var(--pilar-comprometimento); }
-.text { flex: 1; font-size: 14.5px; line-height: 1.35; }
-.textDone { color: var(--text-faint); }
-.pts { font-family: var(--font-num); font-size: 12.5px; color: var(--text-faint); font-weight: 600; }
-
-.taskContent { display: flex; flex-direction: column; flex: 1; }
-.planText { font-size: 0.8rem; color: var(--text-dim); margin-top: 2px; white-space: pre-wrap; line-height: 1.3; }
-
+﻿.cycleCard {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.taskBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.taskHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.taskDesc {
+  margin-left: 36px;
+  font-size: 0.9rem;
+  color: var(--text-dim);
+}
+.subtasks {
+  list-style: none;
+  margin: 0 0 0 36px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.subtaskRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.9rem;
+  color: var(--text-dim);
+}
+.emergents {
+  margin-top: 20px;
+  padding-top: 15px;
+  border-top: 1px dashed var(--bdr);
+}
+.emergents h4 {
+  margin: 0 0 10px 0;
+  font-size: 1rem;
+  font-weight: 600;
+}
+.emergents ul {
+  list-style: none;
+  margin: 0 0 10px 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.addEmergent {
+  display: flex;
+  align-items: center;
+}
+.check {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 2px solid var(--bdr);
+  background: var(--bg-card);
+  color: var(--bg-card);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+.check.on {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #fff;
+}
+.check:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+.subCheck {
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
+  border: 2px solid var(--bdr);
+  background: var(--bg-card);
+  color: var(--bg-card);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+.subCheck.on {
+  background: var(--success);
+  border-color: var(--success);
+  color: #fff;
+}
+.text {
+  font-weight: 500;
+  font-size: 1rem;
+  transition: color 0.2s;
+}
+.textDone {
+  color: var(--text-dim);
+  text-decoration: line-through;
+}

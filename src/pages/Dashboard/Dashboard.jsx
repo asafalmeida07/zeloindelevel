@@ -1,6 +1,5 @@
 ﻿import { useState, useEffect } from "react";
 import Card from "../../components/Card/Card.jsx";
-import Journey from "../../components/Journey/Journey.jsx";
 import TaskCard from "../../components/TaskCard/TaskCard.jsx";
 import Leaderboard from "../../components/Leaderboard/Leaderboard.jsx";
 import Avatar from "../../components/Avatar/Avatar.jsx";
@@ -9,21 +8,13 @@ import { usePhase } from "../../hooks/usePhase.js";
 import { useUser } from "../../hooks/useUser.js";
 import { useTeam } from "../../hooks/useTeam.js";
 import { TASKS_PER_DAY } from "../../utils/constants.js";
-import { dateForAbs } from "../../utils/phase.js";
 import { fmtDate, firstName, timeAgo } from "../../utils/format.js";
-import { PHASE_DAYS as PD } from "../../utils/constants.js";
 import styles from "./Dashboard.module.css";
 
 export default function Dashboard() {
   const { profile } = useUser();
   const { team } = useTeam();
   const phase = usePhase();
-  const [selectedDay, setSelectedDay] = useState(0);
-
-  useEffect(() => {
-    if (!phase?.started) return;
-    setSelectedDay(phase.isCurrentView ? Math.max(phase.dipCurrent, 0) : 0);
-  }, [phase?.started, phase?.isCurrentView, phase?.dipCurrent, phase?.viewedPhase]);
 
   if (!team || !phase) return <Loading full label="Carregando painel" />;
 
@@ -31,77 +22,57 @@ export default function Dashboard() {
     return (
       <div className="fade-in">
         <Card title="A fase ainda não começou">
-          <p className={styles.dim}>A Fase 1 desta equipe começa em {team.anchorDate}. Assim que iniciar, suas 14 tarefas diárias aparecem aqui.</p>
+          <p className={styles.dim}>A Fase 1 começa em {team.anchorDate}.</p>
         </Card>
       </div>
     );
   }
 
-  const base = phase.viewedPhase * PD;
-  const dayDoc = phase.progressMap[selectedDay];
-  const completed = dayDoc?.completed || [];
-  const selDate = dateForAbs(team.anchorDate, base + selectedDay);
-  const editable = phase.isCurrentView && selectedDay <= phase.dipCurrent;
-  const isToday = phase.isCurrentView && selectedDay === phase.dipCurrent;
-  const dayCount = completed.length;
+  const { info, currentCycle } = phase;
 
   return (
     <div className={`fade-in ${styles.grid}`}>
       <div className={styles.left}>
-        <Journey
-          anchorDate={team.anchorDate}
-          progressMap={phase.progressMap}
-          curPhase={phase.curPhase}
-          dipCurrent={phase.dipCurrent}
-          viewedPhase={phase.viewedPhase}
-          setViewedPhase={phase.setViewedPhase}
-          selectedDay={selectedDay}
-          onSelect={setSelectedDay}
-          stats={phase.myAgg}
-          isCurrentView={phase.isCurrentView}
-        />
+        <div style={{marginBottom: "20px", fontSize: "0.9rem", color: "var(--text-dim)"}}>
+          Dia {info.diaDoMapa} do MAPA &middot; Fase {info.phaseNumber} &middot; Etapa {info.etapaNumber} &middot; Nível {profile?.perfectDays || 0}
+        </div>
 
-        <Card
-          title={isToday ? "Hoje" : `Ciclo ${selectedDay + 1}`}
-          action={
-            <span className={styles.dayMeta}>
-              Fase {phase.viewedPhase + 1} · {fmtDate(selDate)} · {dayCount}/{TASKS_PER_DAY}
-              {!isToday && phase.isCurrentView && (
-                <button className={styles.todayBtn} onClick={() => setSelectedDay(phase.dipCurrent)}>ir pra hoje</button>
-              )}
-            </span>
-          }
-        >
-          {!phase.isCurrentView && <div className={styles.ro}>Fase concluída · somente leitura</div>}
-          <TaskCard
-            tasks={phase.tasks}
-            completed={completed}
-            editable={editable}
-            readOnlyNote={!phase.isCurrentView}
-            onToggle={(taskIdx) => phase.toggleTask(selectedDay, taskIdx)}
-            strategicPlan={profile?.strategicPlan}
-          />
-          {editable && dayCount >= TASKS_PER_DAY && (
-            <div className={styles.closed}>Ciclo concluído, {firstName(profile?.name || "")}. Apenas continue.</div>
-          )}
-        </Card>
+        {currentCycle ? (
+          <Card title={`Ciclo Atual: ${currentCycle.cycleNumber}`}>
+            <TaskCard 
+              cycle={currentCycle} 
+              editable={true}
+              onToggleTask={(tName) => phase.toggleTask(currentCycle.cycleNumber, tName)}
+              onToggleSubtask={(tName, subKey) => phase.toggleTask(currentCycle.cycleNumber, tName, subKey)}
+              onAddEmergent={(text) => phase.addEmergent(currentCycle.cycleNumber, text)}
+              onToggleEmergent={(id) => phase.toggleEmergent(currentCycle.cycleNumber, id)}
+            />
+            <div style={{marginTop: '20px'}}>
+              <button className={styles.todayBtn} style={{width: '100%', height: '48px', fontSize: '1.1rem'}} onClick={() => phase.concludeCycle(currentCycle.cycleNumber)}>Concluir Ciclo</button>
+            </div>
+          </Card>
+        ) : (
+          <Card title="Planejamento Pendente">
+            <p>Você precisa gerar o seu Plano Estratégico para esta fase.</p>
+            <a href="/plano" className={styles.todayBtn} style={{textDecoration: 'none', display: 'inline-block', marginTop: '10px'}}>Criar Plano</a>
+          </Card>
+        )}
       </div>
 
       <div className={styles.right}>
-        <Card title={`Ranking · Fase ${phase.viewedPhase + 1}`}>
+        <Card title={`Ranking &middot; Fase ${phase.viewedPhase + 1}`}>
           <Leaderboard rows={phase.ranking} meUid={profile?.uid} />
-          <div className={styles.foot}>pontos = tarefas × 3 · ✓ ciclos 13/13 · 🔥 sequência</div>
         </Card>
 
         <Card title="Feed">
           {phase.feed.length === 0 ? (
-            <p className={styles.dim}>Quando alguém conclui um ciclo de execução (13/13), aparece aqui.</p>
+            <p className={styles.dim}>Nenhuma atividade recente.</p>
           ) : (
             <ul className={styles.feed}>
               {phase.feed.map((ev) => (
                 <li key={ev.id} className={styles.feedRow}>
                   <Avatar name={ev.name} photoURL={ev.photoURL} color={ev.color} size={26} />
-                  <span className={styles.feedTxt}><b>{ev.name}</b> concluiu o Ciclo {ev.day}</span>
+                  <span className={styles.feedTxt}><b>{ev.name}</b> concluiu um Ciclo</span>
                   <span className={styles.feedAgo}>{timeAgo(ev.ts)}</span>
                 </li>
               ))}
@@ -112,4 +83,3 @@ export default function Dashboard() {
     </div>
   );
 }
-

@@ -1,35 +1,50 @@
-.planPage {
-  max-width: 800px;
-  margin: 0 auto;
+﻿.planPage {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
-
 .desc {
-  font-size: 0.95rem;
+  margin-bottom: 20px;
   color: var(--text-dim);
-  margin-bottom: 1rem;
 }
-
-.textarea {
-  width: 100%;
-  min-height: 500px;
-  background-color: var(--bg-dark);
-  border: 1px solid var(--border-color);
-  color: var(--text-color);
-  padding: 1rem;
-  border-radius: 8px;
-  font-family: inherit;
-  font-size: 0.95rem;
-  line-height: 1.5;
-  resize: vertical;
+.config {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
-
-.textarea:focus {
-  outline: none;
-  border-color: var(--accent-color);
+.taskLabel {
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: -10px;
 }
-
+.textareaSmall {
+  background: var(--bg-main);
+  border: 1px solid var(--bdr);
+  color: var(--text);
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-size: 1rem;
+}
 .actions {
-  margin-top: 1rem;
   display: flex;
   justify-content: flex-end;
+}
+.cycleTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+.cycleTable th, .cycleTable td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid var(--bdr);
+}
+.cycleTable th {
+  color: var(--text-dim);
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+.cycleTable td {
+  color: var(--text);
+  font-size: 0.95rem;
 }
