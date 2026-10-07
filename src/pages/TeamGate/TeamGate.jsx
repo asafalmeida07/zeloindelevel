@@ -20,7 +20,7 @@ export default function TeamGate() {
   const [code, setCode] = useState("");
   // create
   const [name, setName] = useState("");
-  const [anchor, setAnchor] = useState("2026-02-17");
+  const [anchor, setAnchor] = useState("2026-10-05");
   const [tasks, setTasks] = useState(() => [...DEFAULT_TASKS]);
 
   const filled = tasks.map((t) => t.trim()).filter(Boolean);
