@@ -1,4 +1,4 @@
-﻿import { useState } from "react";
+import { useState } from "react";
 import { useUser } from "../../hooks/useUser.js";
 import { useTeam } from "../../hooks/useTeam.js";
 import { usePhase } from "../../hooks/usePhase.js";
@@ -28,6 +28,14 @@ export default function Plan() {
   if (loading || !profile || !team || !phase) return null;
 
   const handleGenerate = async () => {
+    if (config.momentoDura < 60) {
+      return toast.error("O Momento na Presença deve ter no mínimo 60 minutos.");
+    }
+    const jejumNum = parseInt(config.jejumRitmo.replace(/\D/g, ''));
+    if (!jejumNum || jejumNum < 12 || jejumNum > 72) {
+      return toast.error("O ritmo de jejum deve ser entre 12 e 72 horas.");
+    }
+
     setSaving(true);
     try {
       const cyclesToSave = [];

@@ -1,4 +1,4 @@
-﻿import { NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import styles from "./Sidebar.module.css";
 import { useTeam } from "../../hooks/useTeam.js";
 import { useAuth } from "../../hooks/useAuth.js";
@@ -14,12 +14,13 @@ export default function Sidebar() {
         <NavLink to="/" end className={link}>Painel</NavLink>
         <NavLink to="/perfil" className={link}>Perfil</NavLink>
         <NavLink to="/plano" className={link}>Plano Estratégico</NavLink>
+        <NavLink to="/estatutos" className={link}>Os Cinco Estatutos</NavLink>
       </nav>
       {team && (
         <div className={styles.team}>
           <div className={styles.teamLabel}>Equipe</div>
           <div className={styles.teamName}>{team.name}</div>
-          <div className={styles.code}>{team.code}{isAdmin ? " · admin" : ""}</div>
+          <div className={styles.code}>{team.code}{isAdmin ? " (admin)" : ""}</div>
         </div>
       )}
       <button className={styles.logout} onClick={logout}>Sair</button>

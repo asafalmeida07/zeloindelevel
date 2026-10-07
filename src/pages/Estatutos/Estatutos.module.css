@@ -1,0 +1,22 @@
+.page {
+  padding-bottom: 80px;
+}
+.estatutoList {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 20px;
+}
+.estatuto {
+  padding: 15px;
+  background: var(--bg-alt);
+  border: 1px solid var(--bdr);
+  border-radius: 8px;
+}
+.estatuto h3 {
+  margin-bottom: 10px;
+}
+.estatuto p {
+  color: var(--text-dim);
+  line-height: 1.5;
+}

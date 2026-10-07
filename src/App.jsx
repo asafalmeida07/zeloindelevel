@@ -20,6 +20,7 @@ import TeamGate from "./pages/TeamGate/TeamGate.jsx";
 import Dashboard from "./pages/Dashboard/Dashboard.jsx";
 import Profile from "./pages/Profile/Profile.jsx";
 import Plan from "./pages/Plan/Plan.jsx";
+import Estatutos from "./pages/Estatutos/Estatutos.jsx";
 import NotFound from "./pages/NotFound/NotFound.jsx";
 import Feed from "./pages/Feed/Feed.jsx";
 import Gestor from "./pages/Gestor/Gestor.jsx";
@@ -28,14 +29,12 @@ import RequireGestor from "./components/ProtectedRoute/RequireGestor.jsx";
 import { useAuth } from "./hooks/useAuth.js";
 import { useUser } from "./hooks/useUser.js";
 
-// Redireciona usuários já autenticados para fora das telas de login.
 function PublicOnly({ children }) {
   const { isAuthenticated, loading } = useAuth();
   if (loading) return <Loading full label="Carregando" />;
   return isAuthenticated ? <Navigate to="/" replace /> : children;
 }
 
-// Exige que o usuário pertença a uma equipe.
 function RequireTeam({ children }) {
   const { profile, loading } = useUser();
   if (loading || !profile) return <Loading full label="Carregando" />;
@@ -44,7 +43,6 @@ function RequireTeam({ children }) {
 }
 
 function GateTeam() {
-  // Se já tem equipe, não faz sentido ficar na tela de entrada.
   const { profile, loading } = useUser();
   if (loading || !profile) return <Loading full label="Carregando" />;
   if (profile.teamId) return <Navigate to="/" replace />;
@@ -68,7 +66,7 @@ export default function App() {
 
                   <Route path="/equipe" element={<ProtectedRoute><GateTeam /></ProtectedRoute>} />
 
-                                    <Route
+                  <Route
                     element={
                       <ProtectedRoute>
                         <RequireTeam>
@@ -81,6 +79,7 @@ export default function App() {
                       <Route path="/" element={<Dashboard />} />
                       <Route path="/perfil" element={<Profile />} />
                       <Route path="/plano" element={<Plan />} />
+                      <Route path="/estatutos" element={<Estatutos />} />
                     </Route>
                     
                     <Route path="/feed" element={<Feed />} />
@@ -97,4 +96,3 @@ export default function App() {
     </ToastProvider>
   );
 }
-
