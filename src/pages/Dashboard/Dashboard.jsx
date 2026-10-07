@@ -79,6 +79,7 @@ export default function Dashboard() {
             editable={editable}
             readOnlyNote={!phase.isCurrentView}
             onToggle={(taskIdx) => phase.toggleTask(selectedDay, taskIdx)}
+            strategicPlan={profile?.strategicPlan}
           />
           {editable && dayCount >= TASKS_PER_DAY && (
             <div className={styles.closed}>Ciclo concluído, {firstName(profile?.name || "")}. Apenas continue.</div>
@@ -111,3 +112,4 @@ export default function Dashboard() {
     </div>
   );
 }
+
