@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+﻿import { Link } from "react-router-dom";
 import styles from "./Navbar.module.css";
 import Avatar from "../Avatar/Avatar.jsx";
 import { useUser } from "../../hooks/useUser.js";
@@ -17,7 +17,7 @@ export default function Navbar() {
         <div className={styles.right}>
           {phase?.started && (
             <span className={styles.phase}>
-              Dia {phase.info.diaDoMapa} do MAPA • Fase {phase.info.phaseNumber} • Etapa {phase.info.etapaNumber} � Ciclo {profile.perfectDays + 1}
+              Dia {phase.info.diaDoMapa} do MAPA • Fase {phase.info.phaseNumber} • Etapa {phase.info.etapaNumber} • Ciclo {profile.perfectDays + 1}
             </span>
           )}
           <Link to="/perfil" className={styles.chip}>
