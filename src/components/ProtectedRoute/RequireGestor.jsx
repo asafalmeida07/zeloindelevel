@@ -1,4 +1,4 @@
-import { useGestorAuth } from '../hooks/useGestorAuth.js';
+import { useGestorAuth } from '../../hooks/useGestorAuth.js';
 import Loading from '../components/Loading/Loading.jsx';
 
 export default function RequireGestor({ children }) {
@@ -19,4 +19,5 @@ export default function RequireGestor({ children }) {
 
   return children;
 }
+
 
