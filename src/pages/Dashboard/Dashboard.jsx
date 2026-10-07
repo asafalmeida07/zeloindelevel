@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+﻿import { useState, useEffect } from "react";
 import Card from "../../components/Card/Card.jsx";
 import Journey from "../../components/Journey/Journey.jsx";
 import TaskCard from "../../components/TaskCard/TaskCard.jsx";
@@ -82,7 +82,7 @@ export default function Dashboard() {
             strategicPlan={profile?.strategicPlan}
           />
           {editable && dayCount >= TASKS_PER_DAY && (
-            <div className={styles.closed}>Ciclo conclu�do, {firstName(profile?.name || "")}. Apenas continue.</div>
+            <div className={styles.closed}>Ciclo concluído, {firstName(profile?.name || "")}. Apenas continue.</div>
           )}
         </Card>
       </div>
@@ -95,7 +95,7 @@ export default function Dashboard() {
 
         <Card title="Feed">
           {phase.feed.length === 0 ? (
-            <p className={styles.dim}>Quando alguém conclui um ciclo de execu��o (13/13), aparece aqui.</p>
+            <p className={styles.dim}>Quando alguém conclui um ciclo de execução (13/13), aparece aqui.</p>
           ) : (
             <ul className={styles.feed}>
               {phase.feed.map((ev) => (
