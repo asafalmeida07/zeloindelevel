@@ -19,8 +19,9 @@
 .danger:hover:not(:disabled) { filter: brightness(1.08); }
 .spin {
   width: 16px; height: 16px; border-radius: 50%;
-  border: 2px solid rgba(255,255,255,.4); border-top-color: var(--pilar-comprometimento);
+  border: 2px solid rgba(20, 40, 75, 0.4); border-top-color: var(--pilar-comprometimento);
   animation: bspin .7s linear infinite;
 }
 @keyframes bspin { to { transform: rotate(360deg); } }
+
 
