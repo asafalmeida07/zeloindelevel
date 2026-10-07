@@ -28,3 +28,4 @@ export function generateTeamCode(prefix = "") {
 }
 
 export const firstName = (name = "") => name.trim().split(" ")[0] || name;
+
