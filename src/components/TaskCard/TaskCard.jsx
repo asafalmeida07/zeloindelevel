@@ -1,7 +1,7 @@
 import styles from "./TaskCard.module.css";
 import { POINTS_PER_TASK } from "../../utils/constants.js";
 
-export default function TaskCard({ tasks, completed = [], editable, onToggle, readOnlyNote }) {
+export default function TaskCard({ tasks, completed = [], editable, onToggle, readOnlyNote, strategicPlan = {} }) {
   const set = new Set(completed);
   return (
     <ul className={styles.list}>
@@ -16,7 +16,7 @@ export default function TaskCard({ tasks, completed = [], editable, onToggle, re
               aria-label={done ? "Desmarcar" : "Concluir"}
               style={{ cursor: editable ? "pointer" : "default" }}
             >{done ? "✓" : ""}</button>
-            <span className={[styles.text, done ? styles.textDone : ""].join(" ")}>{t}</span>
+            <div className={styles.taskContent}><span className={[styles.text, done ? styles.textDone : ""].join(" ")}>{t}</span>{strategicPlan[t] && <div className={styles.planText}>{strategicPlan[t]}</div>}</div>
             <span className={styles.pts}>+{POINTS_PER_TASK}</span>
           </li>
         );
@@ -24,3 +24,4 @@ export default function TaskCard({ tasks, completed = [], editable, onToggle, re
     </ul>
   );
 }
+
