@@ -1,4 +1,3 @@
-import { Navigate } from 'react-router-dom';
 import { useGestorAuth } from '../hooks/useGestorAuth.js';
 import Loading from '../components/Loading/Loading.jsx';
 
@@ -20,3 +19,4 @@ export default function RequireGestor({ children }) {
 
   return children;
 }
+
