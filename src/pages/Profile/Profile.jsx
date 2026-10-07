@@ -1,4 +1,4 @@
-import { useState } from "react";
+﻿import { useState } from "react";
 import Card from "../../components/Card/Card.jsx";
 import Avatar from "../../components/Avatar/Avatar.jsx";
 import StarBadge from "../../components/StarBadge/StarBadge.jsx";
@@ -44,7 +44,7 @@ export default function Profile() {
         <div className={styles.grid}>
           <StatBox label="Nível" value={profile.level || 0} />
           <StatBox label="Estrelas" value={profile.stars || 0} />
-          <StatBox label="Ciclos Conclu�dos" value={profile.perfectDays || 0} />
+          <StatBox label="Ciclos Concluídos" value={profile.perfectDays || 0} />
           <StatBox label="Maior sequência" value={profile.longestStreak || 0} />
           <StatBox label="Fases vencidas" value={profile.phasesWon || 0} />
         </div>
