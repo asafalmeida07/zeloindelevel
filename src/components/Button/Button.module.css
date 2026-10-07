@@ -9,17 +9,18 @@
 .sm { padding: 7px 12px; font-size: 13px; }
 .lg { padding: 14px 20px; font-size: 15.5px; }
 .full { width: 100%; }
-.primary { background: var(--accent); color: #fff; }
+.primary { background: var(--accent); color: var(--pilar-direcionamento); }
 .primary:hover:not(:disabled) { filter: brightness(1.08); }
 .ghost { background: var(--surface-2); color: var(--text); border: 1px solid var(--line); }
 .ghost:hover:not(:disabled) { background: var(--elevated); }
 .subtle { background: transparent; color: var(--text-dim); }
 .subtle:hover:not(:disabled) { color: var(--text); }
-.danger { background: var(--danger); color: #fff; }
+.danger { background: var(--danger); color: var(--pilar-comprometimento); }
 .danger:hover:not(:disabled) { filter: brightness(1.08); }
 .spin {
   width: 16px; height: 16px; border-radius: 50%;
-  border: 2px solid rgba(255,255,255,.4); border-top-color: #fff;
+  border: 2px solid rgba(255,255,255,.4); border-top-color: var(--pilar-comprometimento);
   animation: bspin .7s linear infinite;
 }
 @keyframes bspin { to { transform: rotate(360deg); } }
+
