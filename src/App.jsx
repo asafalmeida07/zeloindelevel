@@ -10,6 +10,7 @@ import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute.jsx";
 import Loading from "./components/Loading/Loading.jsx";
 
 import AppLayout from "./layouts/AppLayout.jsx";
+import RootLayout from "./layouts/RootLayout.jsx";
 import AuthLayout from "./layouts/AuthLayout.jsx";
 
 import Login from "./pages/Login/Login.jsx";
@@ -20,6 +21,9 @@ import Dashboard from "./pages/Dashboard/Dashboard.jsx";
 import Profile from "./pages/Profile/Profile.jsx";
 import Plan from "./pages/Plan/Plan.jsx";
 import NotFound from "./pages/NotFound/NotFound.jsx";
+import Feed from "./pages/Feed/Feed.jsx";
+import Gestor from "./pages/Gestor/Gestor.jsx";
+import RequireGestor from "./components/ProtectedRoute/RequireGestor.jsx";
 
 import { useAuth } from "./hooks/useAuth.js";
 import { useUser } from "./hooks/useUser.js";
@@ -64,18 +68,23 @@ export default function App() {
 
                   <Route path="/equipe" element={<ProtectedRoute><GateTeam /></ProtectedRoute>} />
 
-                  <Route
+                                    <Route
                     element={
                       <ProtectedRoute>
                         <RequireTeam>
-                          <AppLayout />
+                          <RootLayout />
                         </RequireTeam>
                       </ProtectedRoute>
                     }
                   >
-                    <Route path="/" element={<Dashboard />} />
-                    <Route path="/perfil" element={<Profile />} />
-                    <Route path="/plano" element={<Plan />} />
+                    <Route element={<AppLayout />}>
+                      <Route path="/" element={<Dashboard />} />
+                      <Route path="/perfil" element={<Profile />} />
+                      <Route path="/plano" element={<Plan />} />
+                    </Route>
+                    
+                    <Route path="/feed" element={<Feed />} />
+                    <Route path="/gestor/*" element={<RequireGestor><Gestor /></RequireGestor>} />
                   </Route>
 
                   <Route path="*" element={<NotFound />} />
@@ -88,3 +97,4 @@ export default function App() {
     </ToastProvider>
   );
 }
+
