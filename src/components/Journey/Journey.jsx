@@ -49,7 +49,7 @@ export default function Journey({
           let bg = "transparent", border = "1px dashed var(--line)", color = "var(--text-faint)";
           if (!isFuture) {
             if (count === 0) { bg = "var(--surface-2)"; border = "1px solid var(--line)"; }
-            else { bg = `rgba(110,86,248,${0.22 + ratio * 0.78})`; border = "1px solid transparent"; color = ratio > 0.5 ? "#fff" : "var(--text)"; }
+            else { bg = `rgba(31, 77, 54,${0.22 + ratio * 0.78})`; border = "1px solid transparent"; color = ratio > 0.5 ? "var(--pilar-comprometimento)" : "var(--text)"; }
           }
           return (
             <button key={d} className={styles.cell} disabled={isFuture}
@@ -75,3 +75,5 @@ function Stat({ n, l, hot }) {
     </div>
   );
 }
+
+
