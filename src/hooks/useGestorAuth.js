@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useAuthContext } from '../contexts/AuthContext.jsx';
-import { db } from '../services/firebase.js';
+import { db } from '../firebase/config.js';
 import { doc, getDoc } from 'firebase/firestore';
 
 export function useGestorAuth() {
@@ -47,3 +47,4 @@ export function useGestorAuth() {
 
   return { isGestor, isMaster, loading };
 }
+
