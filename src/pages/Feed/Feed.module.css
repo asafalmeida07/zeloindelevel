@@ -1,0 +1,131 @@
+.feedPage {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding-bottom: 80px;
+}
+.composer {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.textarea {
+  width: 100%;
+  min-height: 100px;
+  background: var(--bg-main);
+  border: 1px solid var(--bdr);
+  color: var(--text);
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 1rem;
+  resize: vertical;
+}
+.mediaPreview {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.previewItem {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--bg-alt);
+}
+.previewItem img, .previewItem video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.removeBtn {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background: rgba(0,0,0,0.6);
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+}
+.actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.fileLabel {
+  cursor: pointer;
+  color: var(--text-dim);
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.fileLabel:hover {
+  color: var(--color-avivamento);
+}
+.postList {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.postHeader {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.postMeta {
+  display: flex;
+  flex-direction: column;
+}
+.postName {
+  font-weight: 600;
+  color: var(--text);
+}
+.postTime {
+  font-size: 0.8rem;
+  color: var(--text-dim);
+}
+.postText {
+  color: var(--text);
+  line-height: 1.5;
+  white-space: pre-wrap;
+  margin-bottom: 10px;
+}
+.postMedia {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 10px;
+}
+.mediaItem {
+  width: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--bg-alt);
+}
+.mediaItem img, .mediaItem video {
+  width: 100%;
+  max-height: 500px;
+  object-fit: cover;
+  display: block;
+}
+.linkPreview {
+  padding: 10px;
+  background: var(--bg-main);
+  border: 1px solid var(--bdr);
+  border-radius: 8px;
+  margin-top: 10px;
+}
+.linkPreview a {
+  color: var(--color-avivamento);
+  text-decoration: none;
+  word-break: break-all;
+}
