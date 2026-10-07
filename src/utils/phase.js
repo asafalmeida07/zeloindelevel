@@ -9,8 +9,10 @@ function parseYMD(ymd) {
 }
 
 function startOfToday() {
-  const n = new Date();
-  return new Date(n.getFullYear(), n.getMonth(), n.getDate());
+  const now = new Date();
+  const spStr = now.toLocaleString("en-US", { timeZone: "America/Sao_Paulo" });
+  const spTime = new Date(spStr);
+  return new Date(spTime.getFullYear(), spTime.getMonth(), spTime.getDate());
 }
 
 // Dias decorridos desde a âncora (início da Fase 1). Pode ser negativo.
@@ -61,3 +63,4 @@ export function dateForAbs(anchorYMD, abs) {
   const start = parseYMD(anchorYMD);
   return new Date(start.getFullYear(), start.getMonth(), start.getDate() + abs);
 }
+
