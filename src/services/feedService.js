@@ -11,7 +11,7 @@ export const feedService = {
       photoURL: user.photoURL || "",
       color: user.color || "#6E56F8",
       day: dayNumber,
-      text: `${user.name} concluiu o Dia ${dayNumber}.`,
+      text: `${user.name} concluiu o Ciclo ${dayNumber}.`,
       ts: Date.now(),
     });
   },
