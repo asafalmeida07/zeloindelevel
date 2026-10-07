@@ -7,6 +7,7 @@ export default function Avatar({ name = "", photoURL, color = "#6E56F8", size = 
   return photoURL ? (
     <img className={styles.av} src={photoURL} alt={firstName(name)} style={style} />
   ) : (
-    <span className={styles.av} style={{ ...style, background: color, color: "#fff" }} aria-label={name}>{initials || "?"}</span>
+    <span className={styles.av} style={{ ...style, background: color, color: "var(--pilar-comprometimento)" }} aria-label={name}>{initials || "?"}</span>
   );
 }
+
