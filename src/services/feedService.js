@@ -1,4 +1,4 @@
-import { db, storage } from "../firebase/config.js";
+﻿import { db, storage } from "../firebase/config.js";
 import { collection, query, orderBy, limit, getDocs, addDoc, startAfter, doc, updateDoc, deleteDoc } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL, deleteObject } from "firebase/storage";
 
@@ -24,7 +24,7 @@ export const feedService = {
         try {
            const path = decodeURIComponent(url.split('/o/')[1].split('?alt=media')[0]);
            await deleteObject(ref(storage, path));
-        } catch(e) {}
+        } catch(e) {/* empty */}
       }
     }
   },
@@ -53,10 +53,11 @@ export const feedService = {
       authorId: profile.uid,
       userName: profile.name,
       avatarUrl: profile.avatarUrl || null,
-      content: `🎉 Concluí o Ciclo ${cycleNum} da Fase ${phase} com 100% de aproveitamento! (Dia Perfeito)`,
+      content: `ðŸŽ‰ ConcluÃ­ o Ciclo ${cycleNum} da Fase ${phase} com 100% de aproveitamento! (Dia Perfeito)`,
       createdAt: Date.now(),
       denuncias: [],
       mediaUrls: []
     });
   }
 };
+
