@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+﻿import { useState, useEffect } from "react";
 import Card from "../../components/Card/Card.jsx";
 import Button from "../../components/Button/Button.jsx";
 import { useAuth } from "../../hooks/useAuth.js";
@@ -6,7 +6,7 @@ import { feedService } from "../../services/feedService.js";
 import { useUser } from "../../hooks/useUser.js";
 import styles from "./Feed.module.css";
 
-const PILARES = ["Sustentação", "Avivamento", "Fortalecimento", "Comprometimento", "Direcionamento"];
+const PILARES = ["SustentaÃ§Ã£o", "Avivamento", "Fortalecimento", "Comprometimento", "Direcionamento"];
 
 function getYoutubeId(url) {
   const match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/);
@@ -24,11 +24,16 @@ export default function Feed() {
   const [loading, setLoading] = useState(false);
   const [lastDoc, setLastDoc] = useState(null);
 
-  useEffect(() => {
-    loadPosts();
-  }, []);
+  
 
   const loadPosts = async () => {
+    const res = await feedService.getPosts(null);
+    setPosts(res.posts);
+    setLastDoc(res.lastDoc);
+  };
+  useEffect(() => { loadPosts(); }, []);
+
+  const _loadPostsDummy = async () => {
     const res = await feedService.getPosts(null);
     setPosts(res.posts);
     setLastDoc(res.lastDoc);
@@ -42,13 +47,13 @@ export default function Feed() {
   };
 
   const handlePost = async () => {
-    if (!text.trim() || !categoria) return alert("Texto e categoria obrigatórios!");
+    if (!text.trim() || !categoria) return alert("Texto e categoria obrigatÃ³rios!");
     if (text.length > 3000) return alert("Texto muito longo!");
-    if (files.length > 4) return alert("Máximo de 4 fotos/vídeos.");
+    if (files.length > 4) return alert("MÃ¡ximo de 4 fotos/vÃ­deos.");
     
     // Validar video size (<= 60MB)
     for(let f of files) {
-      if (f.type.startsWith('video/') && f.size > 60 * 1024 * 1024) return alert("Vídeo deve ter no máximo 60MB.");
+      if (f.type.startsWith('video/') && f.size > 60 * 1024 * 1024) return alert("VÃ­deo deve ter no mÃ¡ximo 60MB.");
     }
     
     setLoading(true);
@@ -60,7 +65,7 @@ export default function Feed() {
         media: mediaUrls,
         links: links.filter(l => l.trim() !== "").slice(0, 3),
         authorUid: user.uid,
-        authorName: profile?.displayName || "Anônimo",
+        authorName: profile?.displayName || "AnÃ´nimo",
         createdAt: Date.now()
       };
       await feedService.createPost(post);
@@ -89,14 +94,14 @@ export default function Feed() {
 
   return (
     <div className={`fade-in ${styles.page}`}>
-      <Card title="Nova Publicação">
+      <Card title="Nova PublicaÃ§Ã£o">
         <select value={categoria} onChange={e => setCategoria(e.target.value)} className={styles.select}>
           <option value="">Selecione um Pilar...</option>
           {PILARES.map(p => <option key={p} value={p}>{p}</option>)}
         </select>
         <textarea 
           className={styles.textarea} 
-          placeholder="O que você está vivendo?" 
+          placeholder="O que vocÃª estÃ¡ vivendo?" 
           value={text} 
           onChange={e => setText(e.target.value)}
           maxLength={3000}
@@ -143,3 +148,4 @@ export default function Feed() {
     </div>
   );
 }
+

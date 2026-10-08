@@ -249,3 +249,4 @@ function Quiz({ profile }) {
     </div>
   );
 }
+
