@@ -34,7 +34,7 @@ const fs = require('fs');
     // fill team name
     await page.fill('input[placeholder="Ex.: MCC"]', 'Equipe Teste');
     // fill date (needs format maybe? just put a date string)
-    await page.fill('input[type="date"]', '2026-10-10');
+    await page.fill('input[type="date"]', '2026-10-01');
     // fill task 1
     await page.fill('input[placeholder="Tarefa 1"]', 'Ler a Bíblia');
     // click submit button "Criar equipe"
@@ -57,7 +57,7 @@ const fs = require('fs');
     console.log('Generating Plano...');
     await page.fill('input[type="number"]', '3'); // set to 3 cycles
     await page.click('button:has-text("Adicionar")');
-    await page.waitForSelector('text=Plano gerado com sucesso!');
+    await page.waitForSelector('text=Grade de Ciclos Programados');
     await page.screenshot({ path: 'docs/verificacao/plano/04-plano-gerado.png' });
     
     console.log('Going back to Painel...');
