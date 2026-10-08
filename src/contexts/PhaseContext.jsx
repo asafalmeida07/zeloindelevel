@@ -1,5 +1,6 @@
-﻿import { createContext, useContext, useEffect, useState, useCallback, useRef } from "react";
+import { createContext, useContext, useEffect, useState, useCallback, useRef } from "react";
 import { getPhaseInfo } from "../utils/phase.js";
+import { isCycleReadyToConclude, calculateNextLevel } from "../utils/cycles.js";
 import { TASKS_PER_DAY } from "../utils/constants.js";
 import { cycleService } from "../services/cycleService.js";
 import { rankingService } from "../services/rankingService.js";
@@ -98,22 +99,15 @@ export function PhaseProvider({ children }) {
   const concludeCycle = useCallback(async (cycleNum) => {
     if (!team || !profile || !currentCycle || currentCycle.cycleNumber !== cycleNum) return;
     
-    // Check if everything is done
-    const allTasksDone = Object.values(currentCycle.tasks).every(t => {
-      if (t.subtasks) return Object.values(t.subtasks).every(s => s.done);
-      return t.done;
-    });
-    const allEmergentsDone = (currentCycle.emergentes || []).every(em => em.done);
-
-    if (!allTasksDone || !allEmergentsDone) {
-      alert("Conclua todas as tarefas programadas e emergentes primeiro!");
+    if (!isCycleReadyToConclude(currentCycle.tasks, currentCycle.emergentes)) {
+      alert("Conclua todas as tarefas e respeite as regras de Momento e Jejum!");
       return;
     }
 
     await cycleService.updateCycle(team.id, profile.uid, cycleNum, { status: 'concluido', completedAt: Date.now() });
     
     // Increase level
-    const newLevel = (profile.perfectDays || 0) + 1;
+    const newLevel = calculateNextLevel(profile.perfectDays);
     await userService.grantPerfectDay(profile.uid, { newLongestStreak: newLevel });
     await feedService.publishPerfectDay(team.id, viewedPhase, profile, cycleNum);
     

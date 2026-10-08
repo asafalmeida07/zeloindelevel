@@ -11,7 +11,8 @@ export default function Sidebar() {
   return (
     <aside className={styles.side}>
       <nav className={styles.nav}>
-        <NavLink to="/" end className={link}>Painel</NavLink>
+        <NavLink to="/" end className={link}>Início</NavLink>
+        <NavLink to="/apenas-continue" className={link}>Painel (Apenas Continue)</NavLink>
         <NavLink to="/perfil" className={link}>Perfil</NavLink>
         <NavLink to="/plano" className={link}>Plano Estratégico</NavLink>
         <NavLink to="/estatutos" className={link}>Os Cinco Estatutos</NavLink>

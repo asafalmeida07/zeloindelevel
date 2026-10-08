@@ -39,7 +39,7 @@ export default function Plan() {
     setSaving(true);
     try {
       const cyclesToSave = [];
-      const startNum = phase.cycles.length > 0 ? Math.max(...phase.cycles.map(c => c.cycleNumber)) + 1 : 1;
+      const startNum = phase.cycles && phase.cycles.length > 0 ? Math.max(...phase.cycles.map(c => c.cycleNumber)) + 1 : 1;
 
       for (let i = 0; i < numCycles; i++) {
         const cNum = startNum + i;
@@ -133,7 +133,7 @@ export default function Plan() {
         </div>
         <div className={styles.actions} style={{marginTop: '20px'}}>
           <Button onClick={handleGenerate} disabled={saving} loading={saving}>
-            Adicionar {numCycles} Ciclos
+            {saving ? "Salvando..." : `Adicionar ${numCycles} Ciclos`}
           </Button>
         </div>
       </Card>

@@ -1,4 +1,4 @@
-﻿import { useState } from "react";
+import { useState } from "react";
 import Card from "../../components/Card/Card.jsx";
 import Avatar from "../../components/Avatar/Avatar.jsx";
 import StarBadge from "../../components/StarBadge/StarBadge.jsx";

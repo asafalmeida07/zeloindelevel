@@ -1,171 +1,144 @@
 import { useState, useEffect } from "react";
-import { useUser } from "../../hooks/useUser.js";
-import { useTeam } from "../../hooks/useTeam.js";
-import { feedService } from "../../services/feedService.js";
-import { storageService } from "../../services/storageService.js";
 import Card from "../../components/Card/Card.jsx";
 import Button from "../../components/Button/Button.jsx";
-import Avatar from "../../components/Avatar/Avatar.jsx";
-import Loading from "../../components/Loading/Loading.jsx";
-import { useToast } from "../../components/Toast/ToastContext.jsx";
-import { timeAgo } from "../../utils/format.js";
+import { useAuth } from "../../hooks/useAuth.js";
+import { feedService } from "../../services/feedService.js";
+import { useUser } from "../../hooks/useUser.js";
 import styles from "./Feed.module.css";
 
+const PILARES = ["Sustentação", "Avivamento", "Fortalecimento", "Comprometimento", "Direcionamento"];
+
+function getYoutubeId(url) {
+  const match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/);
+  return match ? match[1] : null;
+}
+
 export default function Feed() {
+  const { user } = useAuth();
   const { profile } = useUser();
-  const { team } = useTeam();
-  const toast = useToast();
-
   const [posts, setPosts] = useState([]);
-  const [loading, setLoading] = useState(true);
-
   const [text, setText] = useState("");
+  const [categoria, setCategoria] = useState("");
   const [files, setFiles] = useState([]);
-  const [publishing, setPublishing] = useState(false);
+  const [links, setLinks] = useState([""]);
+  const [loading, setLoading] = useState(false);
+  const [lastDoc, setLastDoc] = useState(null);
 
   useEffect(() => {
-    if (team) loadFeed();
-  }, [team]);
+    loadPosts();
+  }, []);
 
-  const loadFeed = async () => {
+  const loadPosts = async () => {
+    const res = await feedService.getPosts(null);
+    setPosts(res.posts);
+    setLastDoc(res.lastDoc);
+  };
+
+  const loadMore = async () => {
+    if (!lastDoc) return;
+    const res = await feedService.getPosts(lastDoc);
+    setPosts(p => [...p, ...res.posts]);
+    setLastDoc(res.lastDoc);
+  };
+
+  const handlePost = async () => {
+    if (!text.trim() || !categoria) return alert("Texto e categoria obrigatórios!");
+    if (text.length > 3000) return alert("Texto muito longo!");
+    if (files.length > 4) return alert("Máximo de 4 fotos/vídeos.");
+    
+    // Validar video size (<= 60MB)
+    for(let f of files) {
+      if (f.type.startsWith('video/') && f.size > 60 * 1024 * 1024) return alert("Vídeo deve ter no máximo 60MB.");
+    }
+    
+    setLoading(true);
     try {
-      const data = await feedService.getTeamFeed(team.id);
-      setPosts(data);
+      const mediaUrls = files.length > 0 ? await feedService.uploadMedia(user.uid, files) : [];
+      const post = {
+        text,
+        categoria,
+        media: mediaUrls,
+        links: links.filter(l => l.trim() !== "").slice(0, 3),
+        authorUid: user.uid,
+        authorName: profile?.displayName || "Anônimo",
+        createdAt: Date.now()
+      };
+      await feedService.createPost(post);
+      setText(""); setCategoria(""); setFiles([]); setLinks([""]);
+      loadPosts();
     } catch (e) {
-      console.error(e);
-      toast.error("Erro ao carregar o feed.");
+      alert("Erro ao publicar.");
     } finally {
       setLoading(false);
     }
   };
 
-  const handleFileChange = (e) => {
-    if (e.target.files) {
-      setFiles(prev => [...prev, ...Array.from(e.target.files)].slice(0, 4)); // max 4 files
+  const del = async (p) => {
+    if(window.confirm("Apagar post?")) {
+      await feedService.deletePost(p.id, p.media);
+      loadPosts();
     }
   };
 
-  const removeFile = (idx) => {
-    setFiles(prev => prev.filter((_, i) => i !== idx));
-  };
-
-  const handlePublish = async () => {
-    if (!text.trim() && files.length === 0) return;
-    setPublishing(true);
-    try {
-      const mediaArray = [];
-      for (const f of files) {
-        const url = await storageService.uploadMedia(team.id, profile.uid, f);
-        const type = f.type.startsWith("video/") ? "video" : "image";
-        mediaArray.push({ url, type });
-      }
-
-      await feedService.createPost(team.id, profile, text, mediaArray);
-      setText("");
-      setFiles([]);
-      toast.success("Publicado com sucesso!");
-      loadFeed();
-    } catch (err) {
-      console.error(err);
-      toast.error("Erro ao publicar.");
-    } finally {
-      setPublishing(false);
+  const den = async (p) => {
+    if(window.confirm("Denunciar post?")) {
+      await feedService.denunciar(p.id, user.uid, p.denuncias);
+      loadPosts();
     }
   };
-
-  const renderLinks = (content) => {
-    const urlRegex = /(https?:\/\/[^\s]+)/g;
-    return content.split(urlRegex).map((part, i) => {
-      if (part.match(urlRegex)) {
-        return <a key={i} href={part} target="_blank" rel="noopener noreferrer">{part}</a>;
-      }
-      return part;
-    });
-  };
-
-  if (!team || loading) return <Loading full label="Carregando feed" />;
 
   return (
-    <div className={`fade-in ${styles.feedPage}`}>
-      <Card>
-        <div className={styles.composer}>
-          <textarea 
-            className={styles.textarea}
-            placeholder="Compartilhe uma experiência do que está vivendo..."
-            value={text}
-            onChange={e => setText(e.target.value)}
-          />
-          
-          {files.length > 0 && (
-            <div className={styles.mediaPreview}>
-              {files.map((f, idx) => {
-                const isVideo = f.type.startsWith("video/");
-                const objUrl = URL.createObjectURL(f);
-                return (
-                  <div key={idx} className={styles.previewItem}>
-                    {isVideo ? (
-                      <video src={objUrl} muted />
-                    ) : (
-                      <img src={objUrl} alt="preview" />
-                    )}
-                    <button className={styles.removeBtn} onClick={() => removeFile(idx)}>X</button>
-                  </div>
-                );
-              })}
-            </div>
-          )}
-
-          <div className={styles.actions}>
-            <label className={styles.fileLabel}>
-              <input 
-                type="file" 
-                multiple 
-                accept="image/*,video/*" 
-                style={{display: 'none'}} 
-                onChange={handleFileChange} 
-              />
-              📷 Anexar Foto/Vídeo
-            </label>
-            <Button onClick={handlePublish} disabled={publishing || (!text.trim() && files.length === 0)} loading={publishing}>
-              Publicar
-            </Button>
-          </div>
+    <div className={`fade-in ${styles.page}`}>
+      <Card title="Nova Publicação">
+        <select value={categoria} onChange={e => setCategoria(e.target.value)} className={styles.select}>
+          <option value="">Selecione um Pilar...</option>
+          {PILARES.map(p => <option key={p} value={p}>{p}</option>)}
+        </select>
+        <textarea 
+          className={styles.textarea} 
+          placeholder="O que você está vivendo?" 
+          value={text} 
+          onChange={e => setText(e.target.value)}
+          maxLength={3000}
+        />
+        <input type="file" multiple accept="image/*,video/*" onChange={e => setFiles(Array.from(e.target.files))} />
+        <div className={styles.linksArea}>
+          {links.map((l, i) => (
+            <input key={i} type="text" placeholder="Adicionar Link (ex: YouTube)" value={l} onChange={e => {
+              const nx = [...links]; nx[i] = e.target.value; setLinks(nx);
+            }} />
+          ))}
+          {links.length < 3 && <button onClick={() => setLinks([...links, ""])}>+ Link</button>}
         </div>
+        <Button onClick={handlePost} disabled={loading}>{loading ? "Publicando..." : "Publicar"}</Button>
       </Card>
 
-      <div className={styles.postList}>
+      <div className={styles.timeline}>
         {posts.map(p => (
           <Card key={p.id}>
             <div className={styles.postHeader}>
-              <Avatar url={p.photoURL} name={p.name} color={p.color} size={40} />
-              <div className={styles.postMeta}>
-                <span className={styles.postName}>{p.name}</span>
-                <span className={styles.postTime}>{timeAgo(p.ts)}</span>
-              </div>
+              <strong>{p.authorName}</strong> <span>{p.categoria}</span>
             </div>
-            
-            <div className={styles.postText}>
-              {renderLinks(p.text)}
+            <p style={{whiteSpace: 'pre-wrap'}}>{p.text}</p>
+            {p.media?.map(m => {
+               if (m.includes('video')) return <video key={m} src={m} controls style={{maxWidth: '100%', marginTop: 10}} />;
+               return <img key={m} src={m} style={{maxWidth: '100%', marginTop: 10}} />;
+            })}
+            {p.links?.map(l => {
+               const yt = getYoutubeId(l);
+               if (yt) return <iframe key={l} src={`https://www.youtube.com/embed/${yt}`} style={{width: '100%', height: '200px', marginTop: 10}} />;
+               return <a key={l} href={l} target="_blank" rel="noreferrer noopener" style={{display: 'block', marginTop: 10}}>{l}</a>;
+            })}
+            <div style={{marginTop: 15, display: 'flex', gap: 10}}>
+              {p.authorUid === user?.uid ? (
+                <button onClick={() => del(p)} style={{color: 'var(--danger)', background: 'none', border: 'none', cursor: 'pointer'}}>Excluir</button>
+              ) : (
+                <button onClick={() => den(p)} style={{color: 'var(--text-dim)', background: 'none', border: 'none', cursor: 'pointer'}}>Denunciar</button>
+              )}
             </div>
-
-            {p.media && p.media.length > 0 && (
-              <div className={styles.postMedia}>
-                {p.media.map((m, idx) => (
-                  <div key={idx} className={styles.mediaItem}>
-                    {m.type === 'video' ? (
-                      <video src={m.url} controls preload="metadata" />
-                    ) : (
-                      <img src={m.url} alt="anexo" loading="lazy" />
-                    )}
-                  </div>
-                ))}
-              </div>
-            )}
           </Card>
         ))}
-        {posts.length === 0 && (
-          <p style={{textAlign: 'center', color: 'var(--text-dim)'}}>Nenhuma publicação ainda. Seja o primeiro!</p>
-        )}
+        {lastDoc && <Button onClick={loadMore}>Carregar mais</Button>}
       </div>
     </div>
   );

@@ -1,13 +1,14 @@
-﻿/* Design tokens - Baseado nos Cinco Pilares */
+/* Design tokens - Baseado nos Cinco Pilares */
 :root {
   /* Pilares Base */
   --pilar-sustentacao: #7A1B1B;
   --pilar-avivamento: #E8731A;
+  --pilar-avivamento-texto: #A84A09;
   --pilar-fortalecimento: #1F4D36;
   --pilar-comprometimento: #F4EFE4;
   --pilar-direcionamento: #14284B;
 
-  /* Superfícies */
+  /* SuperfÃ­cies */
   --bg: var(--pilar-comprometimento);
   --bg-soft: #EBE5D6;
   --surface: #FFFFFF;
@@ -21,8 +22,8 @@
   --text-dim: #334970;
   --text-faint: #5F7396;
 
-  /* Marca & Semântica */
-  --accent: var(--pilar-avivamento);
+  /* Marca & SemÃ¢ntica */
+  --accent: var(--pilar-avivamento-texto);
   --accent-2: #FF8F3D;
   --accent-soft: rgba(232, 115, 26, 0.15);
   --success: var(--pilar-fortalecimento);
