@@ -1,4 +1,4 @@
-﻿import { collection, doc, getDoc, getDocs, setDoc, query, where, orderBy, writeBatch } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs, setDoc, query, where, writeBatch } from "firebase/firestore";
 import { db } from "../firebase/config.js";
 
 const cycleId = (teamId, uid, cycleNumber) => `${teamId}_${uid}_${cycleNumber}`;
@@ -29,31 +29,31 @@ export const cycleService = {
   },
 
   async getPhaseCycles(teamId, uid, phase) {
-    const q = query(
-      collection(db, "cycles"),
-      where("teamId", "==", teamId),
-      where("uid", "==", uid),
-      where("phase", "==", phase),
-      orderBy("cycleNumber", "asc")
-    );
+    // Para evitar índice composto no Firestore, filtramos status e ordenamos no cliente
+    const q = query(collection(db, "cycles"), where("uid", "==", uid));
     const snap = await getDocs(q);
     const cycles = [];
-    snap.forEach(d => cycles.push(d.data()));
-    return cycles;
+    snap.forEach(d => {
+      const data = d.data();
+      if (data.teamId === teamId && data.phase === phase) {
+        cycles.push(data);
+      }
+    });
+    return cycles.sort((a, b) => a.cycleNumber - b.cycleNumber);
   },
 
   async getPendingCycles(teamId, uid) {
-    const q = query(
-      collection(db, "cycles"),
-      where("teamId", "==", teamId),
-      where("uid", "==", uid),
-      where("status", "in", ["programado", "atual"]),
-      orderBy("cycleNumber", "asc")
-    );
+    // Para evitar índice composto no Firestore, filtramos status e ordenamos no cliente
+    const q = query(collection(db, "cycles"), where("uid", "==", uid));
     const snap = await getDocs(q);
     const cycles = [];
-    snap.forEach(d => cycles.push(d.data()));
-    return cycles;
+    snap.forEach(d => {
+      const data = d.data();
+      if (data.teamId === teamId && (data.status === "programado" || data.status === "atual")) {
+        cycles.push(data);
+      }
+    });
+    return cycles.sort((a, b) => a.cycleNumber - b.cycleNumber);
   },
 
   async updateCycle(teamId, uid, cycleNumber, updates) {

@@ -17,6 +17,7 @@ import Login from "./pages/Login/Login.jsx";
 import Register from "./pages/Register/Register.jsx";
 import ForgotPassword from "./pages/ForgotPassword/ForgotPassword.jsx";
 import TeamGate from "./pages/TeamGate/TeamGate.jsx";
+import Home from "./pages/Home/Home.jsx";
 import Dashboard from "./pages/Dashboard/Dashboard.jsx";
 import Profile from "./pages/Profile/Profile.jsx";
 import Plan from "./pages/Plan/Plan.jsx";
@@ -76,7 +77,8 @@ export default function App() {
                     }
                   >
                     <Route element={<AppLayout />}>
-                      <Route path="/" element={<Dashboard />} />
+                      <Route path="/" element={<Home />} />
+                      <Route path="/apenas-continue" element={<Dashboard />} />
                       <Route path="/perfil" element={<Profile />} />
                       <Route path="/plano" element={<Plan />} />
                       <Route path="/estatutos" element={<Estatutos />} />

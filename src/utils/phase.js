@@ -8,22 +8,23 @@ function parseYMD(ymd) {
   return new Date(y, m - 1, d);
 }
 
-function startOfToday() {
-  const now = new Date();
+// Extract pure logic to allow testing arbitrary dates
+export function getStartOfToday(simulatedDate) {
+  const now = simulatedDate || new Date();
   const spStr = now.toLocaleString("en-US", { timeZone: "America/Sao_Paulo" });
   const spTime = new Date(spStr);
   return new Date(spTime.getFullYear(), spTime.getMonth(), spTime.getDate());
 }
 
 // Dias decorridos desde a âncora (início da Fase 1). Pode ser negativo.
-export function daysSinceAnchor(anchorYMD) {
+export function daysSinceAnchor(anchorYMD, simulatedDate) {
   if (!anchorYMD) return null;
-  return Math.round((startOfToday() - parseYMD(anchorYMD)) / DAY_MS);
+  return Math.round((getStartOfToday(simulatedDate) - parseYMD(anchorYMD)) / DAY_MS);
 }
 
 // Informações da fase/dia atuais a partir da âncora.
-export function getPhaseInfo(anchorYMD) {
-  const dsa = daysSinceAnchor(anchorYMD);
+export function getPhaseInfo(anchorYMD, simulatedDate) {
+  const dsa = daysSinceAnchor(anchorYMD, simulatedDate);
   if (dsa == null) return { started: false };
   const started = dsa >= 0;
   const phaseIndex = started ? Math.floor(dsa / PHASE_DAYS) : 0;
@@ -63,4 +64,3 @@ export function dateForAbs(anchorYMD, abs) {
   const start = parseYMD(anchorYMD);
   return new Date(start.getFullYear(), start.getMonth(), start.getDate() + abs);
 }
-

@@ -1,0 +1,16 @@
+{
+  "success": true,
+  "results": [
+    "1. cadastro e entrada: PASSOU",
+    "2. equipe: PASSOU",
+    "3. Painel vazio (sem ciclo): PASSOU",
+    "4. abrir o Plano: PASSOU",
+    "5. preencher e clicar em Gerar plano: PASSOU",
+    "6. mensagem de sucesso: PASSOU",
+    "7. Painel exibe o ciclo atual com as 13 tarefas: PASSOU",
+    "8. marcar as tarefas: PASSOU",
+    "9. concluir o ciclo: PASSOU",
+    "10. aparece o próximo ciclo e o nível +1: PASSOU",
+    "11. recarregar a página e confirmar que o ciclo continua lá: PASSOU"
+  ]
+}

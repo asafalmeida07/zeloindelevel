@@ -1,0 +1,490 @@
+[
+  {
+    "question": "Qual é o único estatuto que avança?",
+    "options": [
+      {
+        "text": "EP's",
+        "isCorrect": false
+      },
+      {
+        "text": "Espiral",
+        "isCorrect": false
+      },
+      {
+        "text": "MAPA",
+        "isCorrect": true
+      },
+      {
+        "text": "ODES",
+        "isCorrect": false
+      }
+    ],
+    "explanation": "O MAPA avança; os outros quatro o constroem."
+  },
+  {
+    "question": "*Colheita* é o nome de…",
+    "options": [
+      {
+        "text": "uma engrenagem",
+        "isCorrect": true
+      },
+      {
+        "text": "uma cultura",
+        "isCorrect": false
+      },
+      {
+        "text": "um degrau",
+        "isCorrect": false
+      },
+      {
+        "text": "um Ambiente",
+        "isCorrect": false
+      }
+    ],
+    "explanation": "Evangelismo é a cultura; Colheita é a engrenagem."
+  },
+  {
+    "question": "A quinta engrenagem é…",
+    "options": [
+      {
+        "text": "Louvor",
+        "isCorrect": false
+      },
+      {
+        "text": "Adoração",
+        "isCorrect": true
+      },
+      {
+        "text": "Intercessão",
+        "isCorrect": false
+      },
+      {
+        "text": "Santidade",
+        "isCorrect": false
+      }
+    ],
+    "explanation": "Louvor é uma das doze culturas."
+  },
+  {
+    "question": "Quantas fases tem o MAPA e quantos dias cada uma?",
+    "options": [
+      {
+        "text": "120 de 90 dias",
+        "isCorrect": false
+      },
+      {
+        "text": "360 de 43 dias",
+        "isCorrect": true
+      },
+      {
+        "text": "60 de 7 dias",
+        "isCorrect": false
+      },
+      {
+        "text": "12 de 365 dias",
+        "isCorrect": false
+      }
+    ],
+    "explanation": "São 15.480 dias, de 05/10/2026 a 20/02/2069."
+  },
+  {
+    "question": "Quando começa e termina a Fase 1?",
+    "options": [
+      {
+        "text": "05",
+        "isCorrect": true
+      },
+      {
+        "text": "10 a 16",
+        "isCorrect": false
+      },
+      {
+        "text": "11",
+        "isCorrect": false
+      },
+      {
+        "text": "2026",
+        "isCorrect": true
+      },
+      {
+        "text": "01",
+        "isCorrect": false
+      },
+      {
+        "text": "01 a 12",
+        "isCorrect": false
+      },
+      {
+        "text": "02",
+        "isCorrect": false
+      },
+      {
+        "text": "2027",
+        "isCorrect": false
+      },
+      {
+        "text": "26",
+        "isCorrect": false
+      },
+      {
+        "text": "07 a 06",
+        "isCorrect": false
+      },
+      {
+        "text": "09",
+        "isCorrect": false
+      },
+      {
+        "text": "2026",
+        "isCorrect": false
+      },
+      {
+        "text": "06",
+        "isCorrect": false
+      },
+      {
+        "text": "10 a 17",
+        "isCorrect": false
+      },
+      {
+        "text": "11",
+        "isCorrect": false
+      },
+      {
+        "text": "2026",
+        "isCorrect": false
+      }
+    ],
+    "explanation": "São 43 dias, a partir de 05/10/2026."
+  },
+  {
+    "question": "Quantos dias tem a Etapa 5 de cada fase?",
+    "options": [
+      {
+        "text": "9",
+        "isCorrect": false
+      },
+      {
+        "text": "8",
+        "isCorrect": false
+      },
+      {
+        "text": "7",
+        "isCorrect": true
+      },
+      {
+        "text": "5",
+        "isCorrect": false
+      }
+    ],
+    "explanation": "As quatro primeiras têm 9 dias; a última tem 7."
+  },
+  {
+    "question": "A Fase 2 começa em qual etapa?",
+    "options": [
+      {
+        "text": "Etapa 1",
+        "isCorrect": false
+      },
+      {
+        "text": "Etapa 6",
+        "isCorrect": true
+      },
+      {
+        "text": "Etapa 5",
+        "isCorrect": false
+      },
+      {
+        "text": "Etapa 2",
+        "isCorrect": false
+      }
+    ],
+    "explanation": "A numeração das etapas é contínua."
+  },
+  {
+    "question": "O que acontece se o ciclo não terminar no dia?",
+    "options": [
+      {
+        "text": "É cancelado",
+        "isCorrect": false
+      },
+      {
+        "text": "Continua no dia seguinte, e o nível só sobe ao encerrá-lo",
+        "isCorrect": true
+      },
+      {
+        "text": "O nível sobe pela metade",
+        "isCorrect": false
+      },
+      {
+        "text": "Reinicia",
+        "isCorrect": false
+      }
+    ],
+    "explanation": "O ciclo não expira à meia-noite."
+  },
+  {
+    "question": "Quando o nível sobe?",
+    "options": [
+      {
+        "text": "A cada dia",
+        "isCorrect": false
+      },
+      {
+        "text": "A cada fase",
+        "isCorrect": false
+      },
+      {
+        "text": "A cada ciclo concluído",
+        "isCorrect": true
+      },
+      {
+        "text": "A cada etapa",
+        "isCorrect": false
+      }
+    ],
+    "explanation": "E o nível nunca se perde."
+  },
+  {
+    "question": "Quantas dinâmicas tem a Espiral e quantas voltas?",
+    "options": [
+      {
+        "text": "5 e 1",
+        "isCorrect": false
+      },
+      {
+        "text": "7 e 2",
+        "isCorrect": true
+      },
+      {
+        "text": "8 e 2",
+        "isCorrect": false
+      },
+      {
+        "text": "12 e 3",
+        "isCorrect": false
+      }
+    ],
+    "explanation": "O 4º quadrante da segunda volta é a avaliação, não uma dinâmica."
+  },
+  {
+    "question": "Qual NÃO é um dos cinco hábitos da Aliança?",
+    "options": [
+      {
+        "text": "Perseverança",
+        "isCorrect": false
+      },
+      {
+        "text": "Prudência",
+        "isCorrect": false
+      },
+      {
+        "text": "Generosidade",
+        "isCorrect": true
+      },
+      {
+        "text": "Devoção",
+        "isCorrect": false
+      }
+    ],
+    "explanation": "Os cinco: Perseverança, Prudência, Disciplina, Devoção e Sabedoria."
+  },
+  {
+    "question": "Qual é a primeira tarefa da sequência nuclear do ciclo?",
+    "options": [
+      {
+        "text": "Planejamento estratégico",
+        "isCorrect": false
+      },
+      {
+        "text": "Escrita",
+        "isCorrect": true
+      },
+      {
+        "text": "Estudo focado",
+        "isCorrect": false
+      },
+      {
+        "text": "Organização diária",
+        "isCorrect": false
+      }
+    ],
+    "explanation": "Escrita → Leituras bíblicas → Planejamento estratégico → Leituras → Estudo focado → Organização diária."
+  },
+  {
+    "question": "Quantas leituras tem a Leitura Bíblica e como é a Escrita bíblica?",
+    "options": [
+      {
+        "text": "5 leituras; blocos de 5 versículos escritos 100 vezes",
+        "isCorrect": true
+      },
+      {
+        "text": "3 leituras; capítulos inteiros",
+        "isCorrect": false
+      },
+      {
+        "text": "5 leituras; um versículo por dia",
+        "isCorrect": false
+      },
+      {
+        "text": "7 leituras; livros inteiros",
+        "isCorrect": false
+      }
+    ],
+    "explanation": "Padrão comum e editável."
+  },
+  {
+    "question": "Qual é o próximo degrau da escada do jejum depois de 18h?",
+    "options": [
+      {
+        "text": "24h",
+        "isCorrect": false
+      },
+      {
+        "text": "21h",
+        "isCorrect": true
+      },
+      {
+        "text": "36h",
+        "isCorrect": false
+      },
+      {
+        "text": "15h",
+        "isCorrect": false
+      }
+    ],
+    "explanation": "12h → 15h → 18h → 21h → 24h → 36h → 48h → 56h → 72h."
+  },
+  {
+    "question": "Qual pergunta é feita no Degrau 5?",
+    "options": [
+      {
+        "text": "\"Adão, onde você está?\"",
+        "isCorrect": false
+      },
+      {
+        "text": "\"José, o que Deus tem te permitido sonhar?\"",
+        "isCorrect": false
+      },
+      {
+        "text": "\"Daniel, você acredita que eu posso te livrar?\"",
+        "isCorrect": true
+      },
+      {
+        "text": "\"Neemias, o que te fez chorar?\"",
+        "isCorrect": false
+      }
+    ],
+    "explanation": "Degrau 5: o Éfode, Responsabilidade Visionária."
+  },
+  {
+    "question": "Qual é a primeira fase do Degrau 6 (Neemias)?",
+    "options": [
+      {
+        "text": "O Toque de Trombeta",
+        "isCorrect": false
+      },
+      {
+        "text": "O Choro da Constatação",
+        "isCorrect": true
+      },
+      {
+        "text": "Espada e Colher",
+        "isCorrect": false
+      },
+      {
+        "text": "A Oferta do Suor",
+        "isCorrect": false
+      }
+    ],
+    "explanation": "Parar, olhar com honestidade o que está em ruínas e chorar essa perda."
+  },
+  {
+    "question": "Quantos Ambientes tem o MEAD e qual árvore liga à Paternidade?",
+    "options": [
+      {
+        "text": "7; Carvalho",
+        "isCorrect": true
+      },
+      {
+        "text": "5; Videira",
+        "isCorrect": false
+      },
+      {
+        "text": "7; Cedro",
+        "isCorrect": false
+      },
+      {
+        "text": "12; Oliveira",
+        "isCorrect": false
+      }
+    ],
+    "explanation": "A ligação com árvores e peças do Tabernáculo não é rígida, um a um."
+  },
+  {
+    "question": "A Régua da Nobreza da Liderança mede…",
+    "options": [
+      {
+        "text": "A gravidade",
+        "isCorrect": false
+      },
+      {
+        "text": "O desempenho",
+        "isCorrect": false
+      },
+      {
+        "text": "A gratidão",
+        "isCorrect": true
+      },
+      {
+        "text": "A pressa",
+        "isCorrect": false
+      }
+    ],
+    "explanation": "Tanto o 0 quanto o 100 podem carregar 100% de gratidão."
+  },
+  {
+    "question": "Quem os Capitães de Cinquenta lideram?",
+    "options": [
+      {
+        "text": "As engrenagens",
+        "isCorrect": false
+      },
+      {
+        "text": "Os doze projetos",
+        "isCorrect": true
+      },
+      {
+        "text": "As missões",
+        "isCorrect": false
+      },
+      {
+        "text": "Intervenção e Avante",
+        "isCorrect": false
+      }
+    ],
+    "explanation": "Mil: Intervenção e Avante; Cem: engrenagens; Cinquenta: projetos; Dez: missões."
+  },
+  {
+    "question": "Quais são as três lentes para analisar tudo?",
+    "options": [
+      {
+        "text": "Direção, Velocidade e Integridade",
+        "isCorrect": true
+      },
+      {
+        "text": "Fé, Esperança e Amor",
+        "isCorrect": false
+      },
+      {
+        "text": "Visão, Missão e Valores",
+        "isCorrect": false
+      },
+      {
+        "text": "Entrega, Renovo e Avaliação",
+        "isCorrect": false
+      }
+    ],
+    "explanation": "Não são prática separada; são lentes de reflexão."
+  }
+]

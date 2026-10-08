@@ -1,4 +1,4 @@
-﻿import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import styles from "./Navbar.module.css";
 import Avatar from "../Avatar/Avatar.jsx";
 import { useUser } from "../../hooks/useUser.js";

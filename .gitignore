@@ -1,0 +1,12 @@
+node_modules
+dist
+.env
+.env.local
+.DS_Store
+*.log
+
+login-github.cmd
+artifacts/
+node_modules/
+*.log
+scripts/gestores.local.json

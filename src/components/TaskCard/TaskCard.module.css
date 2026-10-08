@@ -1,4 +1,4 @@
-﻿.cycleCard {
+.cycleCard {
   display: flex;
   flex-direction: column;
   gap: 15px;
@@ -74,7 +74,7 @@
 .check.on {
   background: var(--primary);
   border-color: var(--primary);
-  color: #fff;
+  color: var(--surface);
 }
 .check:disabled {
   opacity: 0.5;
@@ -99,7 +99,7 @@
 .subCheck.on {
   background: var(--success);
   border-color: var(--success);
-  color: #fff;
+  color: var(--surface);
 }
 .text {
   font-weight: 500;

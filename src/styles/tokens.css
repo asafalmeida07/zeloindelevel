@@ -1,13 +1,14 @@
-﻿/* Design tokens - Baseado nos Cinco Pilares */
+/* Design tokens - Baseado nos Cinco Pilares */
 :root {
   /* Pilares Base */
   --pilar-sustentacao: #7A1B1B;
   --pilar-avivamento: #E8731A;
+  --pilar-avivamento-texto: #A84A09;
   --pilar-fortalecimento: #1F4D36;
   --pilar-comprometimento: #F4EFE4;
   --pilar-direcionamento: #14284B;
 
-  /* Superfícies */
+  /* SuperfÃ­cies */
   --bg: var(--pilar-comprometimento);
   --bg-soft: #EBE5D6;
   --surface: #FFFFFF;
@@ -21,8 +22,8 @@
   --text-dim: #334970;
   --text-faint: #5F7396;
 
-  /* Marca & Semântica */
-  --accent: var(--pilar-avivamento);
+  /* Marca & SemÃ¢ntica */
+  --accent: var(--pilar-avivamento-texto);
   --accent-2: #FF8F3D;
   --accent-soft: rgba(232, 115, 26, 0.15);
   --success: var(--pilar-fortalecimento);
@@ -45,4 +46,33 @@
   --maxw: 1080px;
   --nav-h: 60px;
   --side-w: 232px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #1A1A1A;
+    --bg-soft: #2A2A2A;
+    --surface: #242424;
+    --surface-2: #2E2E2E;
+    --elevated: #333333;
+    --line: #444444;
+    --line-soft: #333333;
+
+    --text: #F4EFE4;
+    --text-dim: #D1CDBF;
+    --text-faint: #999999;
+
+    --accent: #E8731A;
+    --accent-2: #FF8F3D;
+    --success: #4ADE80;
+    --gold: #E8731A;
+    --danger: #F87171;
+    
+    --pilar-sustentacao: #F87171;
+    --pilar-avivamento: #E8731A;
+    --pilar-avivamento-texto: #FF8F3D;
+    --pilar-fortalecimento: #4ADE80;
+    --pilar-comprometimento: #D1CDBF;
+    --pilar-direcionamento: #93C5FD;
+  }
 }

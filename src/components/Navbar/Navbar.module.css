@@ -1,4 +1,4 @@
-.bar { position: sticky; top: 0; z-index: 30; height: var(--nav-h); background: rgba(20, 40, 75, 0.98); color: var(--pilar-comprometimento); backdrop-filter: blur(12px); border-bottom: 1px solid var(--line-soft); }
+.bar { position: sticky; top: 0; z-index: 30; height: var(--nav-h); background: rgba(20, 40, 75, 0.98); color: #ffffff; backdrop-filter: blur(12px); border-bottom: 1px solid var(--line-soft); }
 .inner { height: 100%; max-width: var(--maxw); margin: 0 auto; padding: 0 16px; display: flex; align-items: center; justify-content: space-between; }
 .brand { display: flex; align-items: center; gap: 9px; font-weight: 700; letter-spacing: -.01em; font-size: 15.5px; }
 .dot { width: 12px; height: 12px; border-radius: 4px; background: var(--accent); box-shadow: 0 0 12px var(--accent); }

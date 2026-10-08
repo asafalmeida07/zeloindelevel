@@ -1,4 +1,4 @@
-rules_version = '2';
+﻿rules_version = '2';
 
 service cloud.firestore {
   match /databases/{database}/documents {
@@ -20,15 +20,27 @@ service cloud.firestore {
         && exists(/databases/$(database)/documents/config/app)
         && request.auth.uid in get(/databases/$(database)/documents/config/app).data.masterUids;
     }
+    function isGestor() {
+      return isMaster() || (signedIn() && exists(/databases/$(database)/documents/gestores/$(request.auth.token.email.lower())));
+    }
+
+    match /gestores/{emailId} {
+      allow read: if signedIn() && request.auth.token.email.lower() == emailId;
+      allow read, write: if isMaster();
+    }
 
     match /config/{docId} {
       allow read: if signedIn();
-      allow write: if false;
+      allow write: if signedIn() && request.resource.data.uid == request.auth.uid;
     }
 
     match /users/{uid} {
       allow read: if signedIn();
       allow write: if isSelf(uid);
+      
+      match /estatutos_progresso/{docId} {
+        allow read, write: if isSelf(uid);
+      }
     }
 
     match /teams/{teamId} {
@@ -50,10 +62,11 @@ service cloud.firestore {
       allow delete: if signedIn() && resource.data.uid == request.auth.uid;
     }
 
-    match /feed/{docId} {
+    match /posts/{docId} {
       allow read: if signedIn();
-      allow create: if signedIn() && request.resource.data.uid == request.auth.uid;
-      allow update, delete: if signedIn();
+      allow create: if signedIn() && request.resource.data.authorId == request.auth.uid;
+      allow update: if signedIn() && (resource.data.authorId == request.auth.uid || request.resource.data.diff(resource.data).affectedKeys().hasOnly(['denuncias']));
+      allow delete: if signedIn() && resource.data.authorId == request.auth.uid;
     }
 
     match /champions/{docId} {
@@ -65,5 +78,28 @@ service cloud.firestore {
       allow read: if signedIn();
       allow write: if signedIn();
     }
+    
+    match /plans/{docId} {
+      allow read: if signedIn();
+      allow write: if signedIn() && request.resource.data.uid == request.auth.uid;
+      allow delete: if signedIn() && resource.data.uid == request.auth.uid;
+    }
+    
+    match /cycles/{docId} {
+      allow read: if signedIn();
+      allow write: if signedIn() && request.resource.data.uid == request.auth.uid;
+      allow delete: if signedIn() && resource.data.uid == request.auth.uid;
+    }
+    
+    match /gestor_projetos/{docId} {
+      allow read, write: if isGestor();
+    }
+    match /gestor_etapas/{docId} {
+      allow read, write: if isGestor();
+    }
+    match /gestor_objetivos/{docId} {
+      allow read, write: if isGestor();
+    }
   }
 }
+

@@ -1,4 +1,4 @@
-﻿import { useState } from "react";
+import { useState } from "react";
 import styles from "./TaskCard.module.css";
 import { POINTS_PER_TASK, DEFAULT_TASKS } from "../../utils/constants.js";
 

@@ -1,4 +1,4 @@
-﻿import { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Card from "../../components/Card/Card.jsx";
 import TaskCard from "../../components/TaskCard/TaskCard.jsx";
 import Leaderboard from "../../components/Leaderboard/Leaderboard.jsx";
@@ -60,24 +60,8 @@ export default function Dashboard() {
       </div>
 
       <div className={styles.right}>
-        <Card title={`Ranking &middot; Fase ${phase.viewedPhase + 1}`}>
+        <Card title={`Ranking · Fase ${phase.viewedPhase + 1}`}>
           <Leaderboard rows={phase.ranking} meUid={profile?.uid} />
-        </Card>
-
-        <Card title="Feed">
-          {phase.feed.length === 0 ? (
-            <p className={styles.dim}>Nenhuma atividade recente.</p>
-          ) : (
-            <ul className={styles.feed}>
-              {phase.feed.map((ev) => (
-                <li key={ev.id} className={styles.feedRow}>
-                  <Avatar name={ev.name} photoURL={ev.photoURL} color={ev.color} size={26} />
-                  <span className={styles.feedTxt}><b>{ev.name}</b> concluiu um Ciclo</span>
-                  <span className={styles.feedAgo}>{timeAgo(ev.ts)}</span>
-                </li>
-              ))}
-            </ul>
-          )}
         </Card>
       </div>
     </div>

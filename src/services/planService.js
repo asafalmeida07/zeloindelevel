@@ -1,4 +1,4 @@
-﻿import { collection, doc, getDoc, getDocs, setDoc, query, where, writeBatch } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs, setDoc, query, where, writeBatch } from "firebase/firestore";
 import { db } from "../firebase/config.js";
 
 const planId = (teamId, uid, phase) => `${teamId}_${uid}_${phase}`;
