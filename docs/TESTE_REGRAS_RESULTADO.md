@@ -17,3 +17,5 @@
 | alice | `users/alice/estatutos_progresso/quiz` | READ | SUCESSO | SUCESSO (Passou) |
 | bob | `users/alice/estatutos_progresso/quiz` | READ | RECUSA | RECUSA (Passou) |
 | gestor | `gestores` | LIST | RECUSA | RECUSA (Passou) |
+| alice | `gestor_projetos/2` | CREATE | RECUSA | RECUSA (Passou) |
+| alice | `gestores` | LIST | RECUSA | RECUSA (Passou) |

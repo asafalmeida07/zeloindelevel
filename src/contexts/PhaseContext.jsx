@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState, useCallback, useRef } from "react";
+﻿import { createContext, useContext, useEffect, useState, useCallback, useRef } from "react";
 import { getPhaseInfo } from "../utils/phase.js";
 import { isCycleReadyToConclude, calculateNextLevel } from "../utils/cycles.js";
 import { TASKS_PER_DAY } from "../utils/constants.js";
@@ -9,12 +9,14 @@ import { championService } from "../services/championService.js";
 import { userService } from "../services/userService.js";
 import { useTeamContext } from "./TeamContext.jsx";
 import { useUserContext } from "./UserContext.jsx";
+import { useToast } from "../components/Toast/ToastContext.jsx";
 
 const PhaseContext = createContext(null);
 
 export function PhaseProvider({ children }) {
   const { team } = useTeamContext();
   const { profile, refresh: refreshUser } = useUserContext();
+  const toast = useToast();
 
   const info = team?.anchorDate ? getPhaseInfo(team.anchorDate) : { started: false };
   const curPhase = info.started ? info.phaseIndex : 0;
@@ -45,7 +47,7 @@ export function PhaseProvider({ children }) {
   const loadShared = useCallback(async () => {
     if (!team) return;
     setRanking(await rankingService.getPhaseRanking(team.id, viewedPhase));
-    setFeed(await feedService.getPhaseFeed(team.id, viewedPhase));
+    
   }, [team, viewedPhase]);
 
   useEffect(() => { loadCycles(); }, [loadCycles]);
@@ -77,8 +79,31 @@ export function PhaseProvider({ children }) {
     } else {
       updates = { [`tasks.${tName}.done`]: !tData.done };
     }
-    await cycleService.updateCycle(team.id, profile.uid, cycleNum, updates);
-    loadCycles();
+
+    // Optimistic update
+    setPendingCycles(prev => {
+      if (!prev || prev.length === 0) return prev;
+      const newCycles = [...prev];
+      const cycleIndex = newCycles.findIndex(c => c.cycleNumber === cycleNum);
+      if (cycleIndex === -1) return prev;
+      
+      const newTasks = JSON.parse(JSON.stringify(newCycles[cycleIndex].tasks));
+      if (subKey && newTasks[tName].subtasks) {
+        newTasks[tName].subtasks[subKey].done = !newTasks[tName].subtasks[subKey].done;
+      } else {
+        newTasks[tName].done = !newTasks[tName].done;
+      }
+      newCycles[cycleIndex] = { ...newCycles[cycleIndex], tasks: newTasks };
+      return newCycles;
+    });
+
+    try {
+      await cycleService.updateCycle(team.id, profile.uid, cycleNum, updates);
+    } catch(e) {
+      console.error(`Update FAILED:`, e);
+        if (toast) toast.push(`Erro ao salvar a tarefa. A marcacao foi desfeita.`, `error`);
+      loadCycles(); // Revert on failure
+    }
   }, [team, profile, currentCycle, loadCycles]);
 
   const addEmergent = useCallback(async (cycleNum, text) => {
@@ -99,6 +124,8 @@ export function PhaseProvider({ children }) {
   const concludeCycle = useCallback(async (cycleNum) => {
     if (!team || !profile || !currentCycle || currentCycle.cycleNumber !== cycleNum) return;
     
+    console.log("TASKS AT CONCLUDE:", JSON.stringify(currentCycle.tasks));
+
     if (!isCycleReadyToConclude(currentCycle.tasks, currentCycle.emergentes)) {
       alert("Conclua todas as tarefas e respeite as regras de Momento e Jejum!");
       return;
@@ -129,3 +156,4 @@ export function PhaseProvider({ children }) {
 
 export const usePhaseContext = () => useContext(PhaseContext);
 export default PhaseContext;
+

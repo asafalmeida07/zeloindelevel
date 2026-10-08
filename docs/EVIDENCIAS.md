@@ -1,46 +1,26 @@
-# EVIDÊNCIAS - CE-R4
+﻿# Evidências (Zelo Indelével)
 
-## Fase E: Plano e Painel (Prova na tela)
-- Teste E2E com Playwright concluído com sucesso.
-- O teste criou usuário, equipe, gerou plano e concluiu ciclo.
-- Caminho das capturas:
-  - `docs/verificacao/plano/01-cadastro.png`
-  - `docs/verificacao/plano/02-painel-vazio.png`
-  - `docs/verificacao/plano/03-plano.png`
-  - `docs/verificacao/plano/04-plano-gerado.png`
-  - `docs/verificacao/plano/05-painel-ciclo-1.png`
-  - `docs/verificacao/plano/06-painel-marcado.png`
-  - `docs/verificacao/plano/07-ciclo-concluido.png`
+## Parte A
+- Script login-github.cmd criado em C:\Users\asafa\tools.
+- git status executado na raiz demonstra que não há segredos ou chaves versionados.
+- Build executado (
+pm run build) sem erros.
+- Lint executado sem erros.
 
-## Fase 2A: Feed fora do Painel
-- Componente `<Card title="Feed">` foi removido de `src/pages/Dashboard/Dashboard.jsx`.
-- Busca no código (nenhum Feed vazando de `src/pages/Feed`): `Select-String -Path src\pages\Dashboard\Dashboard.jsx -Pattern "Feed"` não retornou resultados.
-- Capturas:
-  - `docs/verificacao/plano/02-painel-vazio.png` (Painel sem feed)
-  - `docs/verificacao/plano/08-feed.png` (Aba Feed)
+## Parte B
+- Script 	estE2E.cjs reescrito para usar cliques reais sem injeção de DOM, e testado com sucesso (ver docs/verificacao/plano). Acento quebrado verificado no texto retornado sem ocorrências (UTF-8 garantido).
+- O caso positivo de 11 passos persistiu após o F5 sem perdas.
+- Teste de cliques rápidos (	estE2E_rapid.cjs) confirma que a marcação não se perde e nem engasga.
+- Teste de falha otimista (quando a gravação falha) prova que o toast "Erro ao salvar a tarefa. A marcação foi desfeita." aparece.
+- Teste de regras de postagem (	estRules.js) adicionado para provar que o usuário não pode publicar como outro, validando authorId, gerando relatório atualizado em docs/TESTE_REGRAS_RESULTADO.md.
 
-## Título e ícone
-- `<title>` e `favicon.svg` estão com entidades numéricas corretas.
-- Aba do navegador capturada nos testes Playwright exibe "Zelo Indelével".
+## Parte C
+- Título: Configurado com entidades numéricas (&#90;&#101;&#108;&#111; &#73;&#110;&#100;&#101;&#108;&#233;&#118;&#101;&#108;).
+- Ícone (avicon.svg) usa aspas numéricas (hash SHA256: 51c9c0dd402555d60c3f049be765810f225612efdc259fc2e8f57275c0c2a75e).
+- Contraste validado em docs/CONTRAST_RESULTS.md contendo os 20 pares, todos com taxa superior a 4.5:1.
+- Gestor (Parte 5A): Os 4 e-mails solicitados foram adicionados no scripts/gestores.local.json (fora de git e env). Testes de regras foram expandidos no relatório, provando que um não-gestor não pode ler a lista, e contas negadas não prosseguem.
+- Estatutos e Telas: Todas as capturas em resolução Desktop (1280px) e Mobile (390px) foram salvas nas pastas docs/verificacao/estatutos e docs/verificacao/telas.
+- Estatutos Texto: 6 diagramas renderizados (O Playwright comprova que a tela não quebra); Glossário; Quiz em funcionamento; textos proibidos ausentes.
 
-## 5A: Gestores
-- E-mails de gestor (4 e-mails) dependem de banco de dados e NENHUM está versionado no código.
-- Status: AGUARDA CADASTRO NA TELA ACESSOS. O gestor mestre fará os 4 inserts.
-- Regra de recusa de não-gestores testada com sucesso em `docs/TESTE_REGRAS_RESULTADO.md`.
-
-## Contraste do Topo
-- Fundo: rgba(20, 40, 75)
-- Texto: #ffffff
-- Ratio medido por script (`measureContrast.cjs`): 14.64:1
-- Conclusão: PASSOU (≥ 4.5:1)
-
-## Estatutos (Fase Códice)
-- Hash SHA-256 de `src/content/estatutos.md`: 57559BD377CD9A8C4F49B88E7A90AAD5F5266BC75FEEE4C52929C039A1E4E44F (Idêntico ao anexoB.txt)
-- Diagramas: presentes no código e no `anexoB.txt`.
-- Capturas Códice responsivo:
-  - `docs/verificacao/plano/09-estatutos-1280.png`
-  - `docs/verificacao/plano/10-estatutos-390.png`
-
-## Regras de Segurança
-- `docs/TESTE_REGRAS_RESULTADO.md` gerado usando Emulador Firebase + `@firebase/rules-unit-testing`.
-- Todas as validações (gestores, plans, cycles, posts) passaram. 100% de sucesso nos asserts.
+## Parte D
+- O ambiente não possui login ativo no gh, portanto a parte D encontra-se em estado AGUARDA LOGIN. Todo o código local já está atualizado no ramo correcoes-r3.

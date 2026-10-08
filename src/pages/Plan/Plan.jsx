@@ -29,11 +29,11 @@ export default function Plan() {
 
   const handleGenerate = async () => {
     if (config.momentoDura < 60) {
-      return toast.error("O Momento na Presença deve ter no mínimo 60 minutos.");
+      return toast.push("O Momento na Presença deve ter no mínimo 60 minutos.");
     }
     const jejumNum = parseInt(config.jejumRitmo.replace(/\D/g, ''));
     if (!jejumNum || jejumNum < 12 || jejumNum > 72) {
-      return toast.error("O ritmo de jejum deve ser entre 12 e 72 horas.");
+      return toast.push("O ritmo de jejum deve ser entre 12 e 72 horas.");
     }
 
     setSaving(true);
@@ -78,11 +78,11 @@ export default function Plan() {
       }
       
       await cycleService.saveCyclesBatch(team.id, profile.uid, cyclesToSave);
-      toast.success("Plano gerado com sucesso!");
+      toast.push("Plano gerado com sucesso!");
       phase.reloadCycles();
     } catch (err) {
       console.error(err);
-      toast.error("Erro ao gerar plano.");
+      toast.push("Erro ao gerar plano.");
     } finally {
       setSaving(false);
     }

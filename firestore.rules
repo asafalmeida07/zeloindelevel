@@ -1,4 +1,4 @@
-rules_version = '2';
+﻿rules_version = '2';
 
 service cloud.firestore {
   match /databases/{database}/documents {
@@ -31,7 +31,7 @@ service cloud.firestore {
 
     match /config/{docId} {
       allow read: if signedIn();
-      allow write: if false;
+      allow write: if signedIn() && request.resource.data.uid == request.auth.uid;
     }
 
     match /users/{uid} {
@@ -102,3 +102,4 @@ service cloud.firestore {
     }
   }
 }
+

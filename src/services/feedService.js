@@ -45,5 +45,18 @@ export const feedService = {
     if (!arr.includes(uid)) {
       await updateDoc(doc(db, "posts", id), { denuncias: [...arr, uid] });
     }
+  },
+
+  publishPerfectDay: async (teamId, phase, profile, cycleNum) => {
+    return addDoc(collection(db, "posts"), {
+      teamId,
+      authorId: profile.uid,
+      userName: profile.name,
+      avatarUrl: profile.avatarUrl || null,
+      content: `🎉 Concluí o Ciclo ${cycleNum} da Fase ${phase} com 100% de aproveitamento! (Dia Perfeito)`,
+      createdAt: Date.now(),
+      denuncias: [],
+      mediaUrls: []
+    });
   }
 };
